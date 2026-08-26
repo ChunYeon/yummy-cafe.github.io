@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>予約確認 | Yummy Café</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+
+    background: #fdf6f0;
+
+    color: #3b2a21;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.confirm-hero {
+
+    min-height: 350px;
+
+    background:
+
+        linear-gradient(
+            rgba(61, 40, 28, 0.68),
+            rgba(61, 40, 28, 0.68)
+        ),
+
+        url("images/reservation.jpg")
+        center center / cover no-repeat;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #ffffff;
+}
+
+
+.confirm-hero-content {
+
+    padding: 40px 20px;
+}
+
+
+.confirm-hero h1 {
+
+    margin: 0 0 15px;
+
+    font-size: 50px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+}
+
+
+.confirm-hero p {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 2;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.confirm-section {
+
+    padding: 70px 20px 90px;
+}
+
+
+.confirm-wrapper {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.confirm-card {
+
+    background: #ffffff;
+
+    padding: 45px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(74, 48, 35, 0.10);
+
+    border-radius: 4px;
+}
+
+
+.confirm-card h2 {
+
+    margin: 0 0 10px;
+
+    color: #4a3023;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+.confirm-subtitle {
+
+    margin-bottom: 30px;
+
+    color: #806b5e;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   INFORMATION BOX
+===================================================== */
+
+.confirm-box {
+
+    margin-bottom: 30px;
+
+    border: 1px solid #e4d8cf;
+
+    background: #fffdfa;
+}
+
+
+.confirm-title {
+
+    padding: 16px 20px;
+
+    background: #4a3023;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.confirm-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 16px 20px;
+
+    border-bottom: 1px solid #eee5df;
+
+    font-size: 14px;
+}
+
+
+.confirm-row:last-child {
+
+    border-bottom: none;
+}
+
+
+.confirm-label {
+
+    color: #725d50;
+
+    font-weight: 600;
+}
+
+
+.confirm-value {
+
+    color: #3b2a21;
+
+    font-weight: 600;
+
+    text-align: right;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   NOTICE
+===================================================== */
+
+.confirm-note {
+
+    margin-bottom: 25px;
+
+    padding: 17px 18px;
+
+    background: #f8f1e9;
+
+    border-left: 3px solid #d9a441;
+
+    color: #725d50;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.confirm-button {
+
+    width: 100%;
+
+    height: 54px;
+
+    border: none;
+
+    border-radius: 2px;
+
+    background: #d9a441;
+
+    color: #3b2a21;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.confirm-button:hover {
+
+    background: #c28e2e;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(74, 48, 35, 0.15);
+}
+
+
+.confirm-button:disabled {
+
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+.back-button {
+
+    width: 100%;
+
+    height: 50px;
+
+    margin-top: 12px;
+
+    border: 1px solid #cdbdb1;
+
+    border-radius: 2px;
+
+    background: #ffffff;
+
+    color: #5d4739;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.back-button:hover {
+
+    background: #f5eee8;
+
+    border-color: #a9907e;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.confirm-footer {
+
+    padding: 45px 20px;
+
+    background: #3b2920;
+
+    color: #e8ddd5;
+
+    text-align: center;
+}
+
+
+.confirm-footer h4 {
+
+    margin: 0 0 10px;
+
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+
+.confirm-footer p {
+
+    margin: 5px 0;
+
+    font-size: 13px;
+}
+
+
+.footer-copy {
+
+    margin-top: 25px !important;
+
+    color: #a99a90;
+
+    font-size: 12px !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .confirm-hero {
+
+        min-height: 300px;
+
+    }
+
+
+    .confirm-hero h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .confirm-section {
+
+        padding: 50px 15px 65px;
+
+    }
+
+
+    .confirm-card {
+
+        padding: 35px 25px 40px;
+
+    }
+
+
+    .confirm-card h2 {
+
+        font-size: 26px;
+
+    }
+
+
+    .confirm-row {
+
+        flex-direction: column;
+
+        gap: 5px;
+
+    }
+
+
+    .confirm-value {
+
+        text-align: left;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div id="navbar-container"></div>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="confirm-hero">
+
+    <div class="confirm-hero-content">
+
+        <h1>
+            予約確認
+        </h1>
+
+        <p>
+            ご予約内容をご確認ください。
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<section class="confirm-section">
+
+    <div class="confirm-wrapper">
+
+
+        <div class="confirm-card">
+
+            <h2>
+                ご予約内容の確認
+            </h2>
+
+            <div class="confirm-subtitle">
+
+                以下の内容でよろしければ、
+                「予約を確定する」を押してください。
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESERVATION
+            ================================================== -->
+
+            <div class="confirm-box">
+
+                <div class="confirm-title">
+                    ご予約情報
+                </div>
+
+
+                <div class="confirm-row">
+
+                    <span class="confirm-label">
+                        日付
+                    </span>
+
+                    <span
+                        id="confirmDate"
+                        class="confirm-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="confirm-row">
+
+                    <span class="confirm-label">
+                        時間
+                    </span>
+
+                    <span
+                        id="confirmTime"
+                        class="confirm-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="confirm-row">
+
+                    <span class="confirm-label">
+                        人数
+                    </span>
+
+                    <span
+                        id="confirmPeople"
+                        class="confirm-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CUSTOMER
+            ================================================== -->
+
+            <div class="confirm-box">
+
+                <div class="confirm-title">
+                    お客様情報
+                </div>
+
+
+                <div class="confirm-row">
+
+                    <span class="confirm-label">
+                        お名前
+                    </span>
+
+                    <span
+                        id="confirmName"
+                        class="confirm-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="confirm-row">
+
+                    <span class="confirm-label">
+                        電話番号
+                    </span>
+
+                    <span
+                        id="confirmPhone"
+                        class="confirm-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="confirm-row">
+
+                    <span class="confirm-label">
+                        メールアドレス
+                    </span>
+
+                    <span
+                        id="confirmEmail"
+                        class="confirm-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NOTICE
+            ================================================== -->
+
+            <div class="confirm-note">
+
+                <strong>
+                    ご確認ください
+                </strong>
+
+                <br>
+
+                ご予約時間は30分単位で、
+                21:00までお選びいただけます。
+                オンライン予約は1名様から8名様までとなります。
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BUTTON
+            ================================================= -->
+
+            <button
+                type="button"
+                id="confirmButton"
+                class="confirm-button"
+                onclick="submitReservation()"
+            >
+                予約を確定する
+            </button>
+
+
+            <button
+                type="button"
+                class="back-button"
+                onclick="goBack()"
+            >
+                お客様情報に戻る
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="confirm-footer">
+
+    <h4>
+        Yummy Café
+    </h4>
+
+    <p>
+        Coffee • Cakes • Pasta • Good Moments
+    </p>
+
+    <p>
+        10:00 — 22:00
+    </p>
+
+    <p class="footer-copy">
+        © 2026 Yummy Café
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+// =====================================================
+// GET SESSION DATA
+// =====================================================
+
+const date =
+    sessionStorage.getItem(
+        "reservationDate"
+    );
+
+
+const time =
+    sessionStorage.getItem(
+        "reservationTime"
+    );
+
+
+const people =
+    sessionStorage.getItem(
+        "reservationPeople"
+    );
+
+
+const name =
+    sessionStorage.getItem(
+        "reservationName"
+    );
+
+
+const phone =
+    sessionStorage.getItem(
+        "reservationPhone"
+    );
+
+
+const email =
+    sessionStorage.getItem(
+        "reservationEmail"
+    );
+
+
+// =====================================================
+// CHECK
+// =====================================================
+
+if (
+    !date ||
+    !time ||
+    !people ||
+    !name ||
+    !phone ||
+    !email
+) {
+
+    alert(
+        "予約情報が不足しています。"
+    );
+
+    window.location.href =
+        "reservation.html";
+
+} else {
+
+    // =================================================
+    // DISPLAY
+    // =================================================
+
+    document.getElementById(
+        "confirmDate"
+    ).textContent =
+        date;
+
+
+    document.getElementById(
+        "confirmTime"
+    ).textContent =
+        time;
+
+
+    document.getElementById(
+        "confirmPeople"
+    ).textContent =
+        people + "名様";
+
+
+    document.getElementById(
+        "confirmName"
+    ).textContent =
+        name;
+
+
+    document.getElementById(
+        "confirmPhone"
+    ).textContent =
+        phone;
+
+
+    document.getElementById(
+        "confirmEmail"
+    ).textContent =
+        email;
+
+}
+
+
+// =====================================================
+// SUBMIT RESERVATION
+// =====================================================
+
+async function submitReservation() {
+
+    const button =
+        document.getElementById(
+            "confirmButton"
+        );
+
+
+    // -------------------------------------------------
+    // PREVENT DOUBLE CLICK
+    // -------------------------------------------------
+
+    button.disabled = true;
+
+    button.textContent =
+        "予約を処理しています...";
+
+
+    try {
+
+        // -------------------------------------------------
+        // SEND API REQUEST
+        // -------------------------------------------------
+
+        const response =
+            await fetch(
+                "/api/reserve",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                        "Accept":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        date:
+                            date,
+
+                        time:
+                            time,
+
+                        people:
+                            Number(people),
+
+                        name:
+                            name,
+
+                        phone:
+                            phone,
+
+                        email:
+                            email
+
+                    })
+
+                }
+            );
+
+
+        // -------------------------------------------------
+        // READ RESPONSE AS TEXT FIRST
+        // -------------------------------------------------
+        //
+        // 不直接使用 response.json()
+        // 防止服务器返回 HTML 时出现：
+        //
+        // Unexpected token '<'
+        //
+        // -------------------------------------------------
+
+        const responseText =
+            await response.text();
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    responseText
+                );
+
+        } catch (jsonError) {
+
+            console.error(
+                "Server returned non-JSON response:",
+                responseText
+            );
+
+
+            throw new Error(
+                "サーバーから正しい応答を受信できませんでした。サーバーが正常に起動しているか確認してください。"
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // API ERROR
+        // -------------------------------------------------
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "予約に失敗しました。"
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // SAVE RESERVATION ID
+        // -------------------------------------------------
+
+        if (
+            data.reservationId !== undefined &&
+            data.reservationId !== null
+        ) {
+
+            sessionStorage.setItem(
+                "reservationId",
+                String(
+                    data.reservationId
+                )
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // SAVE SUCCESS MESSAGE
+        // -------------------------------------------------
+
+        sessionStorage.setItem(
+            "reservationMessage",
+            data.message ||
+            "予約が完了しました。"
+        );
+
+
+        // -------------------------------------------------
+        // GO SUCCESS PAGE
+        // -------------------------------------------------
+
+        window.location.href =
+            "reservation-success.html";
+
+
+    } catch (error) {
+
+        console.error(
+            "Reservation error:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "予約に失敗しました。"
+        );
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "予約を確定する";
+
+    }
+
+}
+
+
+// =====================================================
+// BACK
+// =====================================================
+
+function goBack() {
+
+    window.location.href =
+        "reservation-info.html";
+
+}
+
+
+// =====================================================
+// NAVBAR
+// =====================================================
+
+fetch("navbar.html")
+
+    .then(
+        response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "navbar.html の読み込みに失敗しました。"
+                );
+
+            }
+
+            return response.text();
+
+        }
+    )
+
+    .then(
+        data => {
+
+            document.getElementById(
+                "navbar-container"
+            ).innerHTML =
+                data;
+
+
+            const currentPage =
+                window.location.pathname
+                    .split("/")
+                    .pop() ||
+                "index.html";
+
+
+            const navItems =
+                document.querySelectorAll(
+                    "#navbar a[data-page]"
+                );
+
+
+            navItems.forEach(
+                item => {
+
+                    const page =
+                        item.getAttribute(
+                            "data-page"
+                        );
+
+
+                    if (
+                        page === currentPage
+                    ) {
+
+                        item.classList.add(
+                            "active-page"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            const navbar =
+                document.getElementById(
+                    "navbar"
+                );
+
+
+            if (navbar) {
+
+                function updateNavbar() {
+
+                    if (
+                        window.scrollY > 50
+                    ) {
+
+                        navbar.classList.add(
+                            "scrolled"
+                        );
+
+                    } else {
+
+                        navbar.classList.remove(
+                            "scrolled"
+                        );
+
+                    }
+
+                }
+
+
+                window.addEventListener(
+                    "scroll",
+                    updateNavbar
+                );
+
+
+                updateNavbar();
+
+            }
+
+        }
+    )
+
+    .catch(
+        error => {
+
+            console.error(
+                "ナビゲーションの読み込みに失敗しました:",
+                error
+            );
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

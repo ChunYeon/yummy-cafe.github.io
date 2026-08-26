@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>菜品管理</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background:#fdf6f0;">
+<div class="container mt-4">
+  <h2>菜品管理</h2>
+  <div class="card p-3 mb-4">
+    <h5>添加新菜品</h5>
+    <input id="name" class="form-control mb-2" placeholder="菜品名称">
+    <input id="price" type="number" class="form-control mb-2" placeholder="价格">
+    <input id="desc" class="form-control mb-2" placeholder="描述">
+    <input id="image" type="file" class="form-control mb-2">
+    <button onclick="addFood()" class="btn btn-warning w-100">添加菜品</button>
+  </div>
+  <h5>已上传菜品</h5>
+  <div class="row" id="food-list"></div>
+</div>
+<script>
+async function loadFoods() {
+  const res = await fetch("/api/foods");
+  const data = await res.json();
+  food-list.innerHTML = data.map(f=>`
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <img src="/uploads/${f.image}" class="card-img-top">
+        <div class="card-body">
+          <h5>${f.name}</h5>
+          <p>${f.desc}</p>
+          <strong>$${f.price}</strong>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+async function addFood(){
+  const fileInput=document.getElementById("image");
+  const formData=new FormData();
+  formData.append("name",name.value);
+  formData.append("price",price.value);
+  formData.append("desc",desc.value);
+  if(fileInput.files.length>0) formData.append("image",fileInput.files[0]);
+  const res=await fetch("/api/food",{method:"POST",body:formData});
+  alert(await res.text());
+  name.value=price.value=desc.value="";
+  fileInput.value="";
+  loadFoods();
+}
+loadFoods();
+</script>
+</body>
+</html>

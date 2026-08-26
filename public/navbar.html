@@ -1,0 +1,582 @@
+<!-- =====================================================
+     YUMMY CAFÉ NAVBAR
+====================================================== -->
+
+<nav
+    id="navbar"
+    class="navbar navbar-expand-lg navbar-dark fixed-top"
+>
+
+    <div class="container">
+
+
+        <!-- =================================================
+             LOGO
+        ================================================== -->
+
+        <a
+            class="navbar-brand"
+            href="index.html"
+        >
+            Yummy Café
+        </a>
+
+
+
+        <!-- =================================================
+             NAVIGATION
+        ================================================== -->
+
+        <div
+            class="ms-auto d-flex align-items-center"
+            id="main-navigation"
+        >
+
+
+            <!-- =============================================
+                 HOME
+            ============================================== -->
+
+            <a
+                class="nav-link"
+                href="index.html"
+                data-page="index.html"
+            >
+                Home
+            </a>
+
+
+
+            <!-- =============================================
+                 ABOUT
+            ============================================== -->
+
+            <a
+                class="nav-link"
+                href="about.html"
+                data-page="about.html"
+            >
+                About
+            </a>
+
+
+
+            <!-- =============================================
+                 MENU
+            ============================================== -->
+
+            <a
+                class="nav-link"
+                href="menu.html"
+                data-page="menu.html"
+            >
+                Menu
+            </a>
+
+
+
+            <!-- =============================================
+                 RESERVATION
+            ============================================== -->
+
+            <a
+                class="reservation-btn"
+                href="reservation.html"
+                data-page="reservation.html"
+            >
+                Reservation
+            </a>
+
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     NAVBAR CSS
+====================================================== -->
+
+<style>
+
+/* =====================================================
+   NAVBAR 基础
+====================================================== */
+
+#navbar {
+
+    position: fixed !important;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 9999;
+
+    /*
+       初始透明背景
+    */
+
+    background:
+        rgba(0, 0, 0, 0.25) !important;
+
+    /*
+       初始高度
+    */
+
+    padding:
+        20px 0;
+
+    /*
+       平滑动画
+    */
+
+    transition:
+        background 0.3s ease,
+        padding 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+
+/* =====================================================
+   滚动后的 NAVBAR
+====================================================== */
+
+#navbar.scrolled {
+
+    background:
+        rgba(25, 25, 25, 0.80) !important;
+
+    padding:
+        8px 0;
+
+    box-shadow:
+        0 2px 10px
+        rgba(0, 0, 0, 0.30);
+
+}
+
+
+
+/* =====================================================
+   LOGO
+====================================================== */
+
+#navbar .navbar-brand {
+
+    color:
+        #ffffff !important;
+
+    font-size:
+        1.5rem;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        1px;
+
+    text-decoration:
+        none;
+
+    transition:
+        transform 0.25s ease,
+        font-size 0.3s ease;
+
+}
+
+
+
+/* =====================================================
+   LOGO 鼠标效果
+====================================================== */
+
+#navbar .navbar-brand:hover {
+
+    transform:
+        scale(1.06);
+
+}
+
+
+
+/* =====================================================
+   滚动后 LOGO
+====================================================== */
+
+#navbar.scrolled .navbar-brand {
+
+    font-size:
+        1.2rem;
+
+}
+
+
+
+/* =====================================================
+   普通导航按钮
+====================================================== */
+
+#navbar .nav-link {
+
+    display:
+        inline-block;
+
+    color:
+        rgba(255, 255, 255, 0.95) !important;
+
+    font-size:
+        15px;
+
+    padding:
+        7px 13px !important;
+
+    margin-right:
+        8px;
+
+    border-radius:
+        5px;
+
+    text-decoration:
+        none;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+
+/* =====================================================
+   普通按钮：鼠标经过
+====================================================== */
+
+#navbar .nav-link:hover {
+
+    transform:
+        scale(1.12);
+
+    color:
+        #ffffff !important;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+}
+
+
+
+/* =====================================================
+   当前页面按钮
+====================================================== */
+
+#navbar .nav-link.active-page {
+
+    background:
+        #ffc107 !important;
+
+    color:
+        #212529 !important;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0, 0, 0, 0.15);
+
+}
+
+
+
+/* =====================================================
+   当前页面 + 鼠标
+====================================================== */
+
+#navbar .nav-link.active-page:hover {
+
+    background:
+        #ffc107 !important;
+
+    color:
+        #212529 !important;
+
+    transform:
+        scale(1.12);
+
+}
+
+
+
+/* =====================================================
+   RESERVATION
+====================================================== */
+
+#navbar .reservation-btn {
+
+    display:
+        inline-block;
+
+    /*
+       默认透明
+    */
+
+    background:
+        transparent !important;
+
+    color:
+        #ffffff !important;
+
+    border:
+        none !important;
+
+    font-size:
+        15px;
+
+    padding:
+        7px 13px;
+
+    margin-right:
+        0;
+
+    border-radius:
+        5px;
+
+    text-decoration:
+        none;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+
+/* =====================================================
+   RESERVATION 鼠标经过
+====================================================== */
+
+#navbar .reservation-btn:hover {
+
+    transform:
+        scale(1.12);
+
+    /*
+       鼠标经过时保持淡淡背景
+    */
+
+    background:
+        rgba(255, 255, 255, 0.10) !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+
+/* =====================================================
+   RESERVATION 当前页面
+====================================================== */
+
+#navbar .reservation-btn.active-page {
+
+    background:
+        #ffc107 !important;
+
+    color:
+        #212529 !important;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0, 0, 0, 0.15);
+
+}
+
+
+
+/* =====================================================
+   RESERVATION 当前页面 + 鼠标
+====================================================== */
+
+#navbar .reservation-btn.active-page:hover {
+
+    background:
+        #ffc107 !important;
+
+    color:
+        #212529 !important;
+
+    transform:
+        scale(1.12);
+
+}
+
+
+
+/* =====================================================
+   鼠标点击时
+====================================================== */
+
+#navbar a:active {
+
+    transform:
+        scale(1.05);
+
+}
+
+
+
+/* =====================================================
+   防止 Bootstrap 增加额外样式
+====================================================== */
+
+#navbar a {
+
+    outline:
+        none;
+
+}
+
+
+
+/* =====================================================
+   防止顶部出现白色空隙
+====================================================== */
+
+html,
+body {
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+}
+
+
+
+/* =====================================================
+   MOBILE
+====================================================== */
+
+@media (max-width: 768px) {
+
+    #navbar {
+
+        padding:
+            15px 0;
+
+    }
+
+
+
+    #navbar.scrolled {
+
+        padding:
+            8px 0;
+
+    }
+
+
+
+    #navbar .navbar-brand {
+
+        font-size:
+            1.25rem;
+
+    }
+
+
+
+    #navbar .nav-link,
+    #navbar .reservation-btn {
+
+        font-size:
+            13px;
+
+        padding:
+            6px 9px !important;
+
+        margin-right:
+            4px;
+
+    }
+
+}
+
+</style>
+
+
+
+<!-- =====================================================
+     NAVBAR JAVASCRIPT
+====================================================== -->
+
+<script>
+
+/* =====================================================
+   滚动时改变 Navbar
+====================================================== */
+
+window.addEventListener("scroll", function () {
+
+    const navbar =
+        document.getElementById("navbar");
+
+    if (window.scrollY > 50) {
+
+        navbar.classList.add("scrolled");
+
+    } else {
+
+        navbar.classList.remove("scrolled");
+
+    }
+
+});
+
+
+
+/* =====================================================
+   自动识别当前页面
+====================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const currentPage =
+        window.location.pathname
+        .split("/")
+        .pop() || "index.html";
+
+    const navLinks =
+        document.querySelectorAll(
+            "#main-navigation a"
+        );
+
+    navLinks.forEach(function (link) {
+
+        const page =
+            link.getAttribute("data-page");
+
+        if (page === currentPage) {
+
+            link.classList.add("active-page");
+
+        }
+
+    });
+
+});
+
+</script>

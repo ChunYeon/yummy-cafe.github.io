@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>予約完了 | Yummy Café</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+
+    background: #fdf6f0;
+
+    color: #3b2a21;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.success-hero {
+
+    min-height: 350px;
+
+    background:
+
+        linear-gradient(
+            rgba(61, 40, 28, 0.70),
+            rgba(61, 40, 28, 0.70)
+        ),
+
+        url("images/reservation.jpg")
+        center center / cover no-repeat;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #ffffff;
+}
+
+
+.success-hero-content {
+
+    padding: 40px 20px;
+}
+
+
+.success-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    margin: 0 auto 20px;
+
+    border: 2px solid #d9a441;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #d9a441;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+.success-hero h1 {
+
+    margin: 0 0 15px;
+
+    font-size: 48px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+}
+
+
+.success-hero p {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 2;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.success-section {
+
+    padding: 70px 20px 90px;
+}
+
+
+.success-wrapper {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.success-card {
+
+    background: #ffffff;
+
+    padding: 45px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(74, 48, 35, 0.10);
+
+    border-radius: 4px;
+
+    text-align: center;
+}
+
+
+.success-card h2 {
+
+    margin: 0 0 12px;
+
+    color: #4a3023;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+.success-message {
+
+    margin-bottom: 30px;
+
+    color: #806b5e;
+
+    font-size: 14px;
+
+    line-height: 2;
+}
+
+
+/* =====================================================
+   RESERVATION NUMBER
+===================================================== */
+
+.reservation-number {
+
+    margin-bottom: 30px;
+
+    padding: 20px;
+
+    background: #f8f1e9;
+
+    border-left: 3px solid #d9a441;
+}
+
+
+.reservation-number-label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #806b5e;
+
+    font-size: 13px;
+}
+
+
+.reservation-number-value {
+
+    color: #4a3023;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   INFORMATION
+===================================================== */
+
+.success-info {
+
+    margin-bottom: 30px;
+
+    border: 1px solid #e4d8cf;
+
+    background: #fffdfa;
+
+    text-align: left;
+}
+
+
+.success-info-title {
+
+    padding: 16px 20px;
+
+    background: #4a3023;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.success-info-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 20px;
+
+    border-bottom: 1px solid #eee5df;
+
+    font-size: 14px;
+}
+
+
+.success-info-row:last-child {
+
+    border-bottom: none;
+}
+
+
+.success-label {
+
+    color: #725d50;
+
+    font-weight: 600;
+}
+
+
+.success-value {
+
+    color: #3b2a21;
+
+    font-weight: 600;
+
+    text-align: right;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   NOTE
+===================================================== */
+
+.success-note {
+
+    margin-bottom: 30px;
+
+    padding: 17px 18px;
+
+    background: #f8f1e9;
+
+    color: #725d50;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+
+    text-align: left;
+}
+
+
+.success-note strong {
+
+    color: #4a3023;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.home-button {
+
+    display: block;
+
+    width: 100%;
+
+    height: 54px;
+
+    padding: 15px;
+
+    border-radius: 2px;
+
+    background: #d9a441;
+
+    color: #3b2a21;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-decoration: none;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.home-button:hover {
+
+    background: #c28e2e;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(74, 48, 35, 0.15);
+}
+
+
+.new-reservation-button {
+
+    display: block;
+
+    width: 100%;
+
+    height: 50px;
+
+    margin-top: 12px;
+
+    padding: 14px;
+
+    border: 1px solid #cdbdb1;
+
+    border-radius: 2px;
+
+    background: #ffffff;
+
+    color: #5d4739;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+.new-reservation-button:hover {
+
+    background: #f5eee8;
+
+    border-color: #a9907e;
+
+    color: #3b2a21;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.success-footer {
+
+    padding: 45px 20px;
+
+    background: #3b2920;
+
+    color: #e8ddd5;
+
+    text-align: center;
+}
+
+
+.success-footer h4 {
+
+    margin: 0 0 10px;
+
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+
+.success-footer p {
+
+    margin: 5px 0;
+
+    font-size: 13px;
+}
+
+
+.footer-copy {
+
+    margin-top: 25px !important;
+
+    color: #a99a90;
+
+    font-size: 12px !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .success-hero {
+
+        min-height: 300px;
+
+    }
+
+
+    .success-hero h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .success-section {
+
+        padding: 50px 15px 65px;
+
+    }
+
+
+    .success-card {
+
+        padding: 35px 25px 40px;
+
+    }
+
+
+    .success-card h2 {
+
+        font-size: 26px;
+
+    }
+
+
+    .success-info-row {
+
+        flex-direction: column;
+
+        gap: 5px;
+
+    }
+
+
+    .success-value {
+
+        text-align: left;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div id="navbar-container"></div>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="success-hero">
+
+    <div class="success-hero-content">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>
+            予約完了
+        </h1>
+
+        <p>
+            Yummy Caféのご予約ありがとうございます。
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<section class="success-section">
+
+    <div class="success-wrapper">
+
+
+        <div class="success-card">
+
+            <h2>
+                ご予約を承りました
+            </h2>
+
+
+            <div class="success-message">
+
+                ご予約ありがとうございます。<br>
+
+                以下の内容でご予約を承りました。<br>
+
+                ご予約当日はお気をつけてお越しください。
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESERVATION NUMBER
+            ================================================== -->
+
+            <div class="reservation-number">
+
+                <span class="reservation-number-label">
+                    予約番号
+                </span>
+
+                <span
+                    id="reservationId"
+                    class="reservation-number-value"
+                >
+                    -
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESERVATION INFO
+            ================================================== -->
+
+            <div class="success-info">
+
+                <div class="success-info-title">
+                    ご予約内容
+                </div>
+
+
+                <div class="success-info-row">
+
+                    <span class="success-label">
+                        日付
+                    </span>
+
+                    <span
+                        id="successDate"
+                        class="success-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="success-info-row">
+
+                    <span class="success-label">
+                        時間
+                    </span>
+
+                    <span
+                        id="successTime"
+                        class="success-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="success-info-row">
+
+                    <span class="success-label">
+                        人数
+                    </span>
+
+                    <span
+                        id="successPeople"
+                        class="success-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CUSTOMER INFO
+            ================================================== -->
+
+            <div class="success-info">
+
+                <div class="success-info-title">
+                    お客様情報
+                </div>
+
+
+                <div class="success-info-row">
+
+                    <span class="success-label">
+                        お名前
+                    </span>
+
+                    <span
+                        id="successName"
+                        class="success-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="success-info-row">
+
+                    <span class="success-label">
+                        電話番号
+                    </span>
+
+                    <span
+                        id="successPhone"
+                        class="success-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="success-info-row">
+
+                    <span class="success-label">
+                        メールアドレス
+                    </span>
+
+                    <span
+                        id="successEmail"
+                        class="success-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NOTE
+            ================================================== -->
+
+            <div class="success-note">
+
+                <strong>
+                    ご来店について
+                </strong>
+
+                <br>
+
+                ご予約時間に遅れないよう、
+                お時間に余裕を持ってお越しください。
+
+                <br>
+
+                9名様以上のご予約をご希望の場合は、
+                お電話にてお問い合わせください。
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BUTTON
+            ================================================== -->
+
+            <a
+                href="index.html"
+                class="home-button"
+                onclick="clearReservationData()"
+            >
+                ホームへ戻る
+            </a>
+
+
+            <a
+                href="reservation.html"
+                class="new-reservation-button"
+                onclick="clearReservationData()"
+            >
+                新しい予約をする
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="success-footer">
+
+    <h4>
+        Yummy Café
+    </h4>
+
+    <p>
+        Coffee • Cakes • Pasta • Good Moments
+    </p>
+
+    <p>
+        10:00 — 22:00
+    </p>
+
+    <p class="footer-copy">
+        © 2026 Yummy Café
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+// =====================================================
+// GET SESSION DATA
+// =====================================================
+
+const reservationId =
+    sessionStorage.getItem(
+        "reservationId"
+    );
+
+
+const date =
+    sessionStorage.getItem(
+        "reservationDate"
+    );
+
+
+const time =
+    sessionStorage.getItem(
+        "reservationTime"
+    );
+
+
+const people =
+    sessionStorage.getItem(
+        "reservationPeople"
+    );
+
+
+const name =
+    sessionStorage.getItem(
+        "reservationName"
+    );
+
+
+const phone =
+    sessionStorage.getItem(
+        "reservationPhone"
+    );
+
+
+const email =
+    sessionStorage.getItem(
+        "reservationEmail"
+    );
+
+
+// =====================================================
+// DISPLAY
+// =====================================================
+
+document.getElementById(
+    "reservationId"
+).textContent =
+    reservationId
+        ? reservationId
+        : "-";
+
+
+document.getElementById(
+    "successDate"
+).textContent =
+    date
+        ? date
+        : "-";
+
+
+document.getElementById(
+    "successTime"
+).textContent =
+    time
+        ? time
+        : "-";
+
+
+document.getElementById(
+    "successPeople"
+).textContent =
+    people
+        ? people + "名様"
+        : "-";
+
+
+document.getElementById(
+    "successName"
+).textContent =
+    name
+        ? name
+        : "-";
+
+
+document.getElementById(
+    "successPhone"
+).textContent =
+    phone
+        ? phone
+        : "-";
+
+
+document.getElementById(
+    "successEmail"
+).textContent =
+    email
+        ? email
+        : "-";
+
+
+// =====================================================
+// CLEAR SESSION DATA
+// =====================================================
+
+function clearReservationData() {
+
+    sessionStorage.removeItem(
+        "reservationDate"
+    );
+
+    sessionStorage.removeItem(
+        "reservationTime"
+    );
+
+    sessionStorage.removeItem(
+        "reservationPeople"
+    );
+
+    sessionStorage.removeItem(
+        "reservationName"
+    );
+
+    sessionStorage.removeItem(
+        "reservationPhone"
+    );
+
+    sessionStorage.removeItem(
+        "reservationEmail"
+    );
+
+    sessionStorage.removeItem(
+        "reservationId"
+    );
+
+}
+
+
+// =====================================================
+// NAVBAR
+// =====================================================
+
+fetch("navbar.html")
+
+    .then(
+        response =>
+            response.text()
+    )
+
+    .then(
+        data => {
+
+            document.getElementById(
+                "navbar-container"
+            ).innerHTML =
+                data;
+
+
+            const currentPage =
+                window.location.pathname
+                    .split("/")
+                    .pop() ||
+                "index.html";
+
+
+            const navItems =
+                document.querySelectorAll(
+                    "#navbar a[data-page]"
+                );
+
+
+            navItems.forEach(
+                item => {
+
+                    const page =
+                        item.getAttribute(
+                            "data-page"
+                        );
+
+
+                    if (
+                        page === currentPage
+                    ) {
+
+                        item.classList.add(
+                            "active-page"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            const navbar =
+                document.getElementById(
+                    "navbar"
+                );
+
+
+            if (navbar) {
+
+                function updateNavbar() {
+
+                    if (
+                        window.scrollY > 50
+                    ) {
+
+                        navbar.classList.add(
+                            "scrolled"
+                        );
+
+                    } else {
+
+                        navbar.classList.remove(
+                            "scrolled"
+                        );
+
+                    }
+
+                }
+
+
+                window.addEventListener(
+                    "scroll",
+                    updateNavbar
+                );
+
+
+                updateNavbar();
+
+            }
+
+        }
+    )
+
+    .catch(
+        error => {
+
+            console.error(
+                "ナビゲーションの読み込みに失敗しました:",
+                error
+            );
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

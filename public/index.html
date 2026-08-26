@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Yummy Café | Home</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+
+<style>
+
+/* =====================================================
+   基础页面
+===================================================== */
+
+html,
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    min-height: 100%;
+
+    font-family:
+        "Segoe UI",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+
+}
+
+
+/* =====================================================
+   整个首页固定背景
+===================================================== */
+
+/*
+   重点：
+
+   hero.jpg 是整个首页的背景。
+
+   页面向下滚动时，
+   这张图片始终保持在顶部。
+*/
+
+body {
+
+    background:
+        url("images/hero.jpg")
+        center top
+        / cover
+        fixed
+        no-repeat;
+
+}
+
+
+/* =====================================================
+   整个页面的背景遮罩
+===================================================== */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.20);
+
+    z-index: -1;
+
+    pointer-events: none;
+
+}
+
+
+
+/* =====================================================
+   Navbar 容器
+===================================================== */
+
+#navbar-container {
+
+    position: relative;
+
+    z-index: 9999;
+
+}
+
+
+
+/* =====================================================
+   Hero
+===================================================== */
+
+.hero {
+
+    height: 100vh;
+
+    min-height: 600px;
+
+    /*
+       Hero 不设置自己的背景。
+       使用 body 的 hero.jpg。
+    */
+
+    background:
+        transparent;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+}
+
+
+
+/* =====================================================
+   Hero 内容
+===================================================== */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    padding: 20px;
+
+    will-change:
+        transform,
+        opacity;
+
+}
+
+
+
+/* =====================================================
+   Hero 标题
+===================================================== */
+
+.hero-content h1 {
+
+    font-size: 72px;
+
+    font-weight: 300;
+
+    letter-spacing: 3px;
+
+    margin: 0 0 20px 0;
+
+    text-shadow:
+        0 3px 15px
+        rgba(0, 0, 0, 0.55);
+
+}
+
+
+
+/* =====================================================
+   Hero 副标题
+===================================================== */
+
+.hero-content p {
+
+    font-size: 22px;
+
+    letter-spacing: 1px;
+
+    margin:
+        0 0 35px 0;
+
+    text-shadow:
+        0 2px 10px
+        rgba(0, 0, 0, 0.55);
+
+}
+
+
+
+/* =====================================================
+   Hero 按钮
+===================================================== */
+
+.hero-btn {
+
+    display: inline-block;
+
+    padding:
+        13px 32px;
+
+    background:
+        #ffc107;
+
+    color:
+        #212529;
+
+    border-radius:
+        5px;
+
+    text-decoration:
+        none;
+
+    font-size:
+        16px;
+
+    font-weight:
+        600;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+
+.hero-btn:hover {
+
+    transform:
+        scale(1.08);
+
+    background:
+        #ffca2c;
+
+    color:
+        #212529;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.25);
+
+}
+
+
+
+/* =====================================================
+   Our Story
+===================================================== */
+
+/*
+   注意：
+   这里是 transparent。
+
+   不再有白色背景。
+*/
+
+.home-section {
+
+    padding:
+        110px 0;
+
+    background:
+        transparent;
+
+}
+
+
+
+/* =====================================================
+   Story 内容
+===================================================== */
+
+.intro-text {
+
+    padding:
+        30px;
+
+    /*
+       轻微透明，
+       但不会把 Hero 背景完全遮住。
+    */
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border-radius:
+        15px;
+
+    backdrop-filter:
+        blur(2px);
+
+}
+
+
+
+.intro-text h2 {
+
+    color:
+        #ffffff;
+
+    font-size:
+        42px;
+
+    font-weight:
+        400;
+
+    margin-bottom:
+        25px;
+
+    text-shadow:
+        0 2px 10px
+        rgba(0,0,0,0.4);
+
+}
+
+
+
+.intro-text p {
+
+    color:
+        #ffffff;
+
+    font-size:
+        16px;
+
+    line-height:
+        1.9;
+
+    margin-bottom:
+        18px;
+
+    text-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+/* =====================================================
+   Story 图片
+===================================================== */
+
+.intro-img {
+
+    width:
+        100%;
+
+    height:
+        420px;
+
+    object-fit:
+        cover;
+
+    border-radius:
+        15px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.30);
+
+}
+
+
+
+/* =====================================================
+   Our Café
+===================================================== */
+
+/*
+   完全透明。
+*/
+
+.cafe-section {
+
+    padding:
+        110px 0;
+
+    background:
+        transparent;
+
+}
+
+
+
+/* =====================================================
+   Section 标题
+===================================================== */
+
+.section-title {
+
+    color:
+        #ffffff;
+
+    font-size:
+        42px;
+
+    font-weight:
+        400;
+
+    margin-bottom:
+        15px;
+
+    text-shadow:
+        0 2px 12px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+.section-subtitle {
+
+    color:
+        #ffffff;
+
+    font-size:
+        17px;
+
+    margin-bottom:
+        55px;
+
+    text-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+/* =====================================================
+   Café Card
+===================================================== */
+
+.feature-card {
+
+    height:
+        100%;
+
+    background:
+        rgba(255,255,255,0.14);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.20);
+
+    border-radius:
+        15px;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.20);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    backdrop-filter:
+        blur(3px);
+
+}
+
+
+
+.feature-card:hover {
+
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,0.30);
+
+}
+
+
+
+/* =====================================================
+   Café Card 图片
+===================================================== */
+
+.feature-card img {
+
+    width:
+        100%;
+
+    height:
+        250px;
+
+    object-fit:
+        cover;
+
+}
+
+
+
+/* =====================================================
+   Café Card 文字
+===================================================== */
+
+.feature-content {
+
+    padding:
+        25px;
+
+    text-align:
+        center;
+
+}
+
+
+
+.feature-content h3 {
+
+    color:
+        #ffffff;
+
+    font-size:
+        25px;
+
+    margin-bottom:
+        12px;
+
+    text-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+.feature-content p {
+
+    color:
+        #ffffff;
+
+    line-height:
+        1.8;
+
+    margin:
+        0;
+
+    text-shadow:
+        0 2px 7px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+/* =====================================================
+   Our Menu
+===================================================== */
+
+.menu-section {
+
+    padding:
+        110px 0;
+
+    /*
+       完全透明
+    */
+
+    background:
+        transparent;
+
+}
+
+
+
+/* =====================================================
+   Menu 左侧文字区域
+===================================================== */
+
+.menu-content {
+
+    max-width: 650px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    padding:
+        30px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    border-radius:
+        15px;
+
+    backdrop-filter:
+        blur(2px);
+
+}
+
+
+
+/* =====================================================
+   Menu 描述
+===================================================== */
+
+.menu-description {
+
+    color:
+        #ffffff;
+
+    font-size:
+        17px;
+
+    margin-bottom:
+        30px;
+
+    text-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+/* =====================================================
+   Our Menu 标题和描述居中
+===================================================== */
+
+.menu-content .section-title {
+
+    text-align: center;
+
+}
+
+
+.menu-content .menu-description {
+
+    text-align: center;
+
+}
+
+
+/* =====================================================
+   Menu Item：名称左对齐，价格右对齐
+===================================================== */
+
+.menu-content .menu-preview-item {
+
+    text-align: left;
+
+}
+
+
+/* =====================================================
+   Menu Item
+===================================================== */
+
+.menu-preview-item {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    padding:
+        18px 0;
+
+    border-bottom:
+        1px dashed
+        rgba(255,255,255,0.55);
+
+}
+
+
+
+.menu-preview-item:last-child {
+
+    border-bottom:
+        none;
+
+}
+
+
+
+/* =====================================================
+   菜品名称
+===================================================== */
+
+.item-name {
+
+    color:
+        #ffffff;
+
+    font-size:
+        18px;
+
+    text-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+.item-name small {
+
+    display:
+        block;
+
+    color:
+        rgba(255,255,255,0.80);
+
+    font-size:
+        14px;
+
+    margin-top:
+        4px;
+
+}
+
+
+
+/* =====================================================
+   Price
+===================================================== */
+
+.price {
+
+    color:
+        #ffc107;
+
+    font-weight:
+        bold;
+
+    font-size:
+        17px;
+
+}
+
+
+
+/* =====================================================
+   Menu 图片
+===================================================== */
+
+.menu-preview-img {
+
+    width:
+        100%;
+
+    height:
+        430px;
+
+    object-fit:
+        cover;
+
+    border-radius:
+        15px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.30);
+
+}
+
+
+
+/* =====================================================
+   View Menu Button
+===================================================== */
+
+.view-menu-btn {
+
+    display:
+        inline-block;
+
+    margin-top:
+        25px;
+
+    padding:
+        11px 28px;
+
+    color:
+        #ffffff;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.8);
+
+    border-radius:
+        5px;
+
+    text-decoration:
+        none;
+
+    transition:
+        all 0.25s ease;
+
+}
+
+
+
+.view-menu-btn:hover {
+
+    background:
+        #ffc107;
+
+    color:
+        #212529;
+
+    border-color:
+        #ffc107;
+
+    transform:
+        scale(1.05);
+
+}
+
+
+
+/* =====================================================
+   Reservation CTA
+===================================================== */
+
+.cta-section {
+
+    min-height:
+        450px;
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    /*
+       不设置新的背景图片。
+       继续使用 hero.jpg。
+    */
+
+    background:
+        transparent;
+
+}
+
+
+
+/* =====================================================
+   CTA 内容
+===================================================== */
+
+.cta-content {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    color:
+        #ffffff;
+
+    text-align:
+        center;
+
+    padding:
+        40px;
+
+    text-shadow:
+        0 3px 15px
+        rgba(0,0,0,0.5);
+
+}
+
+
+
+.cta-content h2 {
+
+    font-size:
+        44px;
+
+    font-weight:
+        300;
+
+    margin-bottom:
+        15px;
+
+}
+
+
+
+.cta-content p {
+
+    font-size:
+        18px;
+
+    line-height:
+        1.8;
+
+    margin-bottom:
+        30px;
+
+}
+
+
+
+/* =====================================================
+   Footer
+===================================================== */
+
+.footer {
+
+    padding:
+        35px 15px;
+
+    text-align:
+        center;
+
+    background:
+        rgba(25,20,18,0.45);
+
+    color:
+        #ffffff;
+
+    backdrop-filter:
+        blur(3px);
+
+}
+
+
+
+.footer .brand {
+
+    font-size:
+        20px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+
+.footer p {
+
+    margin:
+        0;
+
+    color:
+        rgba(255,255,255,0.80);
+
+}
+
+
+
+/* =====================================================
+   Mobile
+===================================================== */
+
+@media (max-width: 768px) {
+
+
+    body {
+
+        /*
+           移动端仍然使用顶部背景。
+        */
+
+        background-attachment:
+            scroll;
+
+    }
+
+
+
+    .hero {
+
+        min-height:
+            650px;
+
+    }
+
+
+
+    .hero-content h1 {
+
+        font-size:
+            48px;
+
+        letter-spacing:
+            2px;
+
+    }
+
+
+
+    .hero-content p {
+
+        font-size:
+            17px;
+
+    }
+
+
+
+    .home-section,
+    .cafe-section,
+    .menu-section {
+
+        padding:
+            80px 0;
+
+    }
+
+
+
+    .intro-img {
+
+        height:
+            300px;
+
+        margin-bottom:
+            25px;
+
+    }
+
+
+
+    .intro-text {
+
+        padding:
+            20px;
+
+    }
+
+
+
+    .section-title {
+
+        font-size:
+            34px;
+
+    }
+
+
+
+    .feature-card img {
+
+        height:
+            220px;
+
+    }
+
+
+
+    .menu-preview-img {
+
+        height:
+            300px;
+
+        margin-top:
+            30px;
+
+    }
+
+
+
+    .cta-content h2 {
+
+        font-size:
+            34px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div id="navbar-container"></div>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Yummy Café
+        </h1>
+
+        <p>
+            A Cup of Coffee, A Moment of Happiness
+        </p>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OUR STORY
+===================================================== -->
+
+<section class="home-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+
+            <!-- Story 图片 -->
+
+            <div class="col-lg-6 mb-4 mb-lg-0">
+
+                <img
+                    src="images/our-story.jpg"
+                    class="intro-img"
+                    alt="Barista making coffee"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+
+            <!-- Story 文字 -->
+
+            <div class="col-lg-6">
+
+                <div class="intro-text">
+
+                    <h2>
+                        Our Story
+                    </h2>
+
+                    <p>
+                        Yummy Café is a cozy café
+                        where carefully selected
+                        coffee beans, handmade desserts
+                        and delicious food come together.
+                    </p>
+
+                    <p>
+                        私たちは、一杯のコーヒーを通して、
+                        お客様に心地よい時間と
+                        小さな幸せをお届けします。
+                    </p>
+
+                    <p>
+                        From the first cup in the morning
+                        to a relaxing afternoon,
+                        every visit is designed
+                        to feel warm and memorable.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OUR CAFÉ
+===================================================== -->
+
+<section class="cafe-section">
+
+    <div class="container">
+
+
+        <div class="text-center">
+
+            <h2 class="section-title">
+                Our Café
+            </h2>
+
+            <p class="section-subtitle">
+                Discover our coffee, desserts and cozy atmosphere
+            </p>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+            <!-- Coffee -->
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <img
+                        src="images/coffee-beans.jpg"
+                        alt="Coffee Beans"
+                        loading="lazy"
+                    >
+
+                    <div class="feature-content">
+
+                        <h3>
+                            Coffee
+                        </h3>
+
+                        <p>
+                            香り豊かなコーヒー豆を
+                            丁寧に抽出しています。
+                            <br>
+                            Carefully brewed coffee
+                            made from selected beans.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Dessert -->
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <img
+                        src="images/dessert.jpg"
+                        alt="Dessert"
+                        loading="lazy"
+                    >
+
+                    <div class="feature-content">
+
+                        <h3>
+                            Dessert
+                        </h3>
+
+                        <p>
+                            手作りのケーキと
+                            季節のスイーツ。
+                            <br>
+                            Handmade cakes and
+                            seasonal desserts.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Interior -->
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <img
+                        src="images/interior.jpg"
+                        alt="Café Interior"
+                        loading="lazy"
+                    >
+
+                    <div class="feature-content">
+
+                        <h3>
+                            Interior
+                        </h3>
+
+                        <p>
+                            ゆっくり過ごせる
+                            落ち着いた空間。
+                            <br>
+                            A warm and relaxing
+                            place to enjoy your time.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OUR MENU
+===================================================== -->
+
+<section class="menu-section">
+
+    <div class="container">
+
+        <div class="row align-items-center justify-content-center">
+
+
+            <!-- 左侧菜单 -->
+
+            <div class="col-lg-6">
+
+                <div class="menu-content">
+
+                    <h2 class="section-title">
+                        Our Menu
+                    </h2>
+
+                    <p class="menu-description">
+                        Fresh Coffee • Handmade Cakes
+                        • Italian Pasta
+                    </p>
+
+
+
+                    <!-- Americano -->
+
+                    <div class="menu-preview-item">
+
+                        <div class="item-name">
+
+                            アメリカーノ
+
+                            <small>
+                                Americano
+                            </small>
+
+                        </div>
+
+                        <div class="price">
+                            ¥550
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Matcha Latte -->
+
+                    <div class="menu-preview-item">
+
+                        <div class="item-name">
+
+                            抹茶ラテ
+
+                            <small>
+                                Matcha Latte
+                            </small>
+
+                        </div>
+
+                        <div class="price">
+                            ¥600
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Strawberry -->
+
+                    <div class="menu-preview-item">
+
+                        <div class="item-name">
+
+                            ストロベリーショートケーキ
+
+                            <small>
+                                Strawberry Shortcake
+                            </small>
+
+                        </div>
+
+                        <div class="price">
+                            ¥650
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Bolognese -->
+
+                    <div class="menu-preview-item">
+
+                        <div class="item-name">
+
+                            ボロネーゼ
+
+                            <small>
+                                Spaghetti Bolognese
+                            </small>
+
+                        </div>
+
+                        <div class="price">
+                            ¥1200
+                        </div>
+
+                    </div>
+</div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RESERVATION
+===================================================== -->
+
+<section class="cta-section">
+
+    <div class="cta-content">
+
+        <h2>
+            A Moment at Yummy Café
+        </h2>
+
+        <p>
+
+            ゆっくりとした時間を、
+            おいしいコーヒーとともに。
+
+            <br>
+
+            Enjoy a relaxing moment
+            with coffee and delicious food.
+
+        </p>
+
+        <a
+            href="reservation.html"
+            class="hero-btn"
+        >
+            Make a Reservation
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="brand">
+        Yummy Café
+    </div>
+
+    <p>
+        Coffee • Cakes • Pasta • Good Moments
+    </p>
+
+    <p class="mt-2">
+        © 2026 Yummy Café
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   加载 navbar.html
+===================================================== */
+
+fetch("navbar.html")
+
+.then(response => {
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Navbar failed to load: "
+            + response.status
+        );
+
+    }
+
+    return response.text();
+
+})
+
+.then(data => {
+
+
+    /* =================================================
+       插入 Navbar
+    ================================================= */
+
+    document.getElementById(
+        "navbar-container"
+    ).innerHTML = data;
+
+
+
+    /* =================================================
+       当前页面判断
+    ================================================= */
+
+    let currentPage =
+        window.location.pathname
+        .split("/")
+        .pop()
+        .toLowerCase();
+
+
+
+    /*
+       如果访问 localhost:3000/
+       自动认为是 index.html
+    */
+
+    if (
+        currentPage === ""
+        ||
+        currentPage === "/"
+    ) {
+
+        currentPage =
+            "index.html";
+
+    }
+
+
+
+    /* =================================================
+       当前页面黄色框
+    ================================================= */
+
+    const navLinks =
+        document.querySelectorAll(
+            "#navbar [data-page]"
+        );
+
+
+    navLinks.forEach(link => {
+
+        const page =
+            link
+            .getAttribute("data-page")
+            .toLowerCase();
+
+
+        link.classList.remove(
+            "active-page"
+        );
+
+
+        if (
+            page === currentPage
+        ) {
+
+            link.classList.add(
+                "active-page"
+            );
+
+        }
+
+    });
+
+
+
+    /* =================================================
+       Navbar 滚动效果
+    ================================================= */
+
+    const navbar =
+        document.getElementById(
+            "navbar"
+        );
+
+
+    function updateNavbar() {
+
+        if (!navbar) {
+
+            return;
+
+        }
+
+
+        if (
+            window.scrollY > 50
+        ) {
+
+            navbar.classList.add(
+                "scrolled"
+            );
+
+        } else {
+
+            navbar.classList.remove(
+                "scrolled"
+            );
+
+        }
+
+    }
+
+
+
+    /* =================================================
+       Hero 文字滚动效果
+    ================================================= */
+
+    const heroContent =
+        document.querySelector(
+            ".hero-content"
+        );
+
+
+    function updateHero() {
+
+        if (!heroContent) {
+
+            return;
+
+        }
+
+
+        const scrollY =
+            window.scrollY;
+
+
+
+        /*
+           Hero 文字向上移动
+        */
+
+        heroContent.style.transform =
+            "translateY(" +
+            (scrollY * -0.35) +
+            "px)";
+
+
+
+        /*
+           Hero 文字淡出
+        */
+
+        heroContent.style.opacity =
+            Math.max(
+                0,
+                1 - scrollY / 500
+            );
+
+    }
+
+
+
+    /* =================================================
+       初始化
+    ================================================= */
+
+    updateNavbar();
+
+    updateHero();
+
+
+
+    /* =================================================
+       Scroll
+    ================================================= */
+
+    window.addEventListener(
+        "scroll",
+        function() {
+
+            updateNavbar();
+
+            updateHero();
+
+        }
+    );
+
+})
+
+.catch(error => {
+
+    console.error(
+        "Navbar 加载失败:",
+        error
+    );
+
+});
+
+</script>
+
+
+</body>
+
+</html>

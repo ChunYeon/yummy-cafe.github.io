@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Yummy Café | Menu</title>
+
+
+    <!-- =====================================================
+         Bootstrap
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
+        html,
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            background: #fdf6f0;
+
+            font-family:
+                "Segoe UI",
+                "Yu Gothic",
+                "Meiryo",
+                sans-serif;
+
+        }
+
+
+        /*
+         Navbar 是 fixed-top，
+         所以这里不能设置 padding-top:80px
+        */
+
+        body {
+
+            padding-top: 0;
+
+        }
+
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .menu-hero {
+
+            height: 420px;
+
+            background:
+                url("images/hero.jpg")
+                center center /
+                cover
+                no-repeat;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        /* Hero 黑色透明层 */
+
+        .menu-hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                rgba(0, 0, 0, 0.45);
+
+        }
+
+
+        /* Hero 内容 */
+
+        .menu-hero .content {
+
+            position: relative;
+
+            z-index: 2;
+
+            color: #ffffff;
+
+            text-align: center;
+
+            padding: 20px;
+
+        }
+
+
+        /* Hero 标题 */
+
+        .menu-hero h1 {
+
+            font-size: 64px;
+
+            font-weight: 300;
+
+            letter-spacing: 2px;
+
+            margin: 0 0 15px 0;
+
+        }
+
+
+        /* Hero 副标题 */
+
+        .menu-hero p {
+
+            font-size: 22px;
+
+            margin: 0;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        /* =====================================================
+           SECTION
+        ====================================================== */
+
+        .section {
+
+            padding: 90px 0;
+
+        }
+
+
+        /*
+         每个部分交替显示不同背景
+        */
+
+        .section:nth-of-type(odd) {
+
+            background: #ffffff;
+
+        }
+
+
+
+        /* =====================================================
+           SECTION TITLE
+        ====================================================== */
+
+        .section-title {
+
+            font-size: 40px;
+
+            margin-bottom: 30px;
+
+            color: #5b3b2a;
+
+            font-weight: 500;
+
+        }
+
+
+
+        /* =====================================================
+           MENU ITEM
+        ====================================================== */
+
+        .menu-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-bottom:
+                1px dashed #d8c8b8;
+
+            padding: 13px 0;
+
+            gap: 20px;
+
+        }
+
+
+        /* 菜品日文 */
+
+        .menu-item span:first-child {
+
+            font-size: 18px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* 英文 */
+
+        .menu-item small {
+
+            display: block;
+
+            color: #777777;
+
+            font-size: 14px;
+
+            margin-top: 2px;
+
+        }
+
+
+        /* 价格 */
+
+        .menu-item span:last-child {
+
+            font-weight: bold;
+
+            color: #5b3b2a;
+
+            white-space: nowrap;
+
+        }
+
+
+
+        /* =====================================================
+           FOOD CARD
+        ====================================================== */
+
+        .food-card {
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        /* =====================================================
+           FOOD IMAGE
+        ====================================================== */
+
+        .food-card img {
+
+            width: 100%;
+
+            height: auto;
+
+            display: block;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.12);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+
+        }
+
+
+        /* 图片鼠标效果 */
+
+        .food-card img:hover {
+
+            transform: scale(1.03);
+
+            box-shadow:
+                0 15px 30px rgba(0, 0, 0, 0.18);
+
+        }
+
+
+
+        /* =====================================================
+           FOOD NAME
+        ====================================================== */
+
+        .food-name {
+
+            text-align: center;
+
+            margin-top: 12px;
+
+            font-weight: 600;
+
+            color: #5b3b2a;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* 英文名称 */
+
+        .food-name small {
+
+            color: #777777;
+
+            font-size: 14px;
+
+            font-weight: 400;
+
+        }
+
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 768px) {
+
+
+            .menu-hero {
+
+                height: 360px;
+
+            }
+
+
+            .menu-hero h1 {
+
+                font-size: 44px;
+
+            }
+
+
+            .menu-hero p {
+
+                font-size: 17px;
+
+            }
+
+
+            .section {
+
+                padding: 60px 20px;
+
+            }
+
+
+            .section-title {
+
+                font-size: 32px;
+
+            }
+
+
+            .menu-item span:first-child {
+
+                font-size: 16px;
+
+            }
+
+
+            .menu-item small {
+
+                font-size: 13px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR CONTAINER
+    ====================================================== -->
+
+    <div id="navbar-container"></div>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="menu-hero">
+
+        <div class="content">
+
+            <h1>
+                メニュー
+            </h1>
+
+            <p>
+                Fresh Coffee • Handmade Cakes • Italian Pasta
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         COFFEE
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+
+                <!-- ============================
+                     Coffee Menu
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <h2 class="section-title">
+                        ☕ Coffee
+                    </h2>
+
+
+                    <!-- Caffè Latte -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            カフェラテ
+
+                            <br>
+
+                            <small>
+                                Caffè Latte
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥600
+                        </span>
+
+                    </div>
+
+
+                    <!-- Americano -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            アメリカーノ
+
+                            <br>
+
+                            <small>
+                                Americano
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥550
+                        </span>
+
+                    </div>
+
+
+                    <!-- Cappuccino -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            カプチーノ
+
+                            <br>
+
+                            <small>
+                                Cappuccino
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥600
+                        </span>
+
+                    </div>
+
+
+                    <!-- Caramel Macchiato -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            キャラメルマキアート
+
+                            <br>
+
+                            <small>
+                                Caramel Macchiato
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥650
+                        </span>
+
+                    </div>
+
+
+                    <!-- Cold Brew -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            コールドブリュー
+
+                            <br>
+
+                            <small>
+                                Cold Brew
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥550
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ============================
+                     Coffee Images
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <div class="row">
+
+
+                        <!-- Latte -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/latte.jpg"
+                                    alt="Caffè Latte"
+                                >
+
+                                <div class="food-name">
+
+                                    カフェラテ
+
+                                    <br>
+
+                                    <small>
+                                        Caffè Latte
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Americano -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/americano.jpg"
+                                    alt="Americano"
+                                >
+
+                                <div class="food-name">
+
+                                    アメリカーノ
+
+                                    <br>
+
+                                    <small>
+                                        Americano
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DRINKS
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="row align-items-center flex-lg-row-reverse">
+
+
+                <!-- ============================
+                     Drinks Menu
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <h2 class="section-title">
+                        🥤 Drinks
+                    </h2>
+
+
+                    <!-- Lemonade -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            レモネード
+
+                            <br>
+
+                            <small>
+                                Lemonade
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥550
+                        </span>
+
+                    </div>
+
+
+                    <!-- Matcha Latte -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            抹茶ラテ
+
+                            <br>
+
+                            <small>
+                                Matcha Latte
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥600
+                        </span>
+
+                    </div>
+
+
+                    <!-- Peach Tea -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            ピーチティー
+
+                            <br>
+
+                            <small>
+                                Peach Tea
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥550
+                        </span>
+
+                    </div>
+
+
+                    <!-- Apple Juice -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            アップルジュース
+
+                            <br>
+
+                            <small>
+                                Apple Juice
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥500
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ============================
+                     Drinks Images
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <div class="row">
+
+
+                        <!-- Lemonade -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/lemonade.jpg"
+                                    alt="Lemonade"
+                                >
+
+                                <div class="food-name">
+
+                                    レモネード
+
+                                    <br>
+
+                                    <small>
+                                        Lemonade
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Matcha Latte -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/matcha.jpg"
+                                    alt="Matcha Latte"
+                                >
+
+                                <div class="food-name">
+
+                                    抹茶ラテ
+
+                                    <br>
+
+                                    <small>
+                                        Matcha Latte
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CAKES
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+
+                <!-- ============================
+                     Cakes Menu
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <h2 class="section-title">
+                        🍰 Cakes
+                    </h2>
+
+
+                    <!-- Strawberry Shortcake -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            ストロベリーショートケーキ
+
+                            <br>
+
+                            <small>
+                                Strawberry Shortcake
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥650
+                        </span>
+
+                    </div>
+
+
+                    <!-- Tiramisu -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            ティラミス
+
+                            <br>
+
+                            <small>
+                                Tiramisu
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥650
+                        </span>
+
+                    </div>
+
+
+                    <!-- Cheesecake -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            チーズケーキ
+
+                            <br>
+
+                            <small>
+                                Cheesecake
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥600
+                        </span>
+
+                    </div>
+
+
+                    <!-- Matcha Mille Crepe -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            抹茶ミルクレープ
+
+                            <br>
+
+                            <small>
+                                Matcha Mille Crepe
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥650
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ============================
+                     Cakes Images
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <div class="row">
+
+
+                        <!-- Strawberry -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/strawberry.jpg"
+                                    alt="Strawberry Shortcake"
+                                >
+
+                                <div class="food-name">
+
+                                    ストロベリーショートケーキ
+
+                                    <br>
+
+                                    <small>
+                                        Strawberry Shortcake
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Tiramisu -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/tiramisu.jpg"
+                                    alt="Tiramisu"
+                                >
+
+                                <div class="food-name">
+
+                                    ティラミス
+
+                                    <br>
+
+                                    <small>
+                                        Tiramisu
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PASTA
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="row align-items-center flex-lg-row-reverse">
+
+
+                <!-- ============================
+                     Pasta Menu
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <h2 class="section-title">
+                        🍝 Pasta
+                    </h2>
+
+
+                    <!-- Bolognese -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            ボロネーゼ
+
+                            <br>
+
+                            <small>
+                                Spaghetti Bolognese
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥1200
+                        </span>
+
+                    </div>
+
+
+                    <!-- Carbonara -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            カルボナーラ
+
+                            <br>
+
+                            <small>
+                                Carbonara
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥1200
+                        </span>
+
+                    </div>
+
+
+                    <!-- Aglio e Olio -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            ペペロンチーノ
+
+                            <br>
+
+                            <small>
+                                Aglio e Olio
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥1100
+                        </span>
+
+                    </div>
+
+
+                    <!-- Seafood Tomato Pasta -->
+
+                    <div class="menu-item">
+
+                        <span>
+
+                            シーフードトマトパスタ
+
+                            <br>
+
+                            <small>
+                                Seafood Tomato Pasta
+                            </small>
+
+                        </span>
+
+                        <span>
+                            ¥1400
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ============================
+                     Pasta Images
+                ============================= -->
+
+                <div class="col-lg-6">
+
+                    <div class="row">
+
+
+                        <!-- Bolognese -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/bolognese.jpg"
+                                    alt="Spaghetti Bolognese"
+                                >
+
+                                <div class="food-name">
+
+                                    ボロネーゼ
+
+                                    <br>
+
+                                    <small>
+                                        Spaghetti Bolognese
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Carbonara -->
+
+                        <div class="col-6">
+
+                            <div class="food-card">
+
+                                <img
+                                    src="images/menu/carbonara.jpg"
+                                    alt="Carbonara"
+                                >
+
+                                <div class="food-name">
+
+                                    カルボナーラ
+
+                                    <br>
+
+                                    <small>
+                                        Carbonara
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LOAD NAVBAR
+    ====================================================== -->
+
+    <script>
+
+        fetch("navbar.html")
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "navbar.html の読み込みに失敗しました。"
+                    + " Status: "
+                    + response.status
+                );
+
+            }
+
+            return response.text();
+
+        })
+
+
+        .then(data => {
+
+
+            /* ------------------------------------------
+               插入 Navbar
+            ------------------------------------------ */
+
+            document
+                .getElementById("navbar-container")
+                .innerHTML = data;
+
+
+
+            /* ------------------------------------------
+               当前页面
+            ------------------------------------------ */
+
+            let currentPage =
+                window.location.pathname
+                .split("/")
+                .pop()
+                .toLowerCase();
+
+
+            /*
+               如果没有文件名
+               默认 index.html
+            */
+
+            if (
+                currentPage === "" ||
+                currentPage === "/"
+            ) {
+
+                currentPage = "index.html";
+
+            }
+
+
+
+            /* ------------------------------------------
+               获取导航按钮
+            ------------------------------------------ */
+
+            const navLinks =
+                document.querySelectorAll(
+                    "#navbar [data-page]"
+                );
+
+
+
+            /* ------------------------------------------
+               判断当前页面
+            ------------------------------------------ */
+
+            navLinks.forEach(link => {
+
+                const page =
+                    link
+                    .getAttribute("data-page")
+                    .toLowerCase();
+
+
+                if (page === currentPage) {
+
+                    link.classList.add(
+                        "active-page"
+                    );
+
+                }
+
+            });
+
+
+
+            /* ------------------------------------------
+               Navbar
+            ------------------------------------------ */
+
+            const navbar =
+                document.getElementById(
+                    "navbar"
+                );
+
+
+
+            /* ------------------------------------------
+               Scroll
+            ------------------------------------------ */
+
+            function updateNavbar() {
+
+                if (!navbar) {
+
+                    return;
+
+                }
+
+
+                if (
+                    window.scrollY > 50
+                ) {
+
+                    navbar.classList.add(
+                        "scrolled"
+                    );
+
+                } else {
+
+                    navbar.classList.remove(
+                        "scrolled"
+                    );
+
+                }
+
+            }
+
+
+
+            /* ------------------------------------------
+               页面加载时执行
+            ------------------------------------------ */
+
+            updateNavbar();
+
+
+
+            /* ------------------------------------------
+               滚动监听
+            ------------------------------------------ */
+
+            window.addEventListener(
+                "scroll",
+                updateNavbar
+            );
+
+
+        })
+
+
+        .catch(error => {
+
+            console.error(
+                "Navbar Error:",
+                error
+            );
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

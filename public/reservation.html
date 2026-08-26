@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>ご予約 | Yummy Café</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family:
+        "Segoe UI",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+
+    background: #fdf6f0;
+
+    color: #3b2a21;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.reservation-hero {
+
+    min-height: 430px;
+
+    margin: 0;
+
+    background:
+
+        linear-gradient(
+            rgba(61, 40, 28, 0.68),
+            rgba(61, 40, 28, 0.68)
+        ),
+
+        url("images/reservation.jpg")
+        center center / cover no-repeat;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #ffffff;
+}
+
+
+.reservation-hero-content {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    padding: 40px 20px;
+}
+
+
+.reservation-hero h1 {
+
+    font-size: 58px;
+
+    font-weight: 700;
+
+    letter-spacing: 5px;
+
+    margin: 0 0 18px;
+}
+
+
+.reservation-hero p {
+
+    margin: 0;
+
+    font-size: 16px;
+
+    letter-spacing: 1px;
+
+    line-height: 2;
+
+    opacity: 0.95;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.reservation-section {
+
+    padding: 75px 20px 90px;
+
+    background: #fdf6f0;
+}
+
+
+.reservation-wrapper {
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.reservation-intro {
+
+    margin-bottom: 45px;
+}
+
+
+.reservation-intro h2 {
+
+    color: #4a3023;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    margin: 0 0 15px;
+}
+
+
+.reservation-intro h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 55px;
+
+    height: 4px;
+
+    background: #d9a441;
+
+    margin-top: 13px;
+}
+
+
+.reservation-intro p {
+
+    max-width: 760px;
+
+    margin: 0;
+
+    color: #725d50;
+
+    font-size: 15px;
+
+    line-height: 2;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.reservation-card {
+
+    background: #ffffff;
+
+    border-radius: 4px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 45px
+        rgba(74, 48, 35, 0.10);
+}
+
+
+/* =====================================================
+   LEFT
+===================================================== */
+
+.reservation-card-left {
+
+    height: 100%;
+
+    min-height: 570px;
+
+    padding: 50px 38px;
+
+    background: #4a3023;
+
+    color: #ffffff;
+}
+
+
+.reservation-card-left h3 {
+
+    margin: 0 0 22px;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+
+.reservation-card-left p {
+
+    margin: 0;
+
+    color: #eadfd7;
+
+    font-size: 14px;
+
+    line-height: 2;
+}
+
+
+/* =====================================================
+   INFORMATION
+===================================================== */
+
+.reservation-info {
+
+    margin-top: 40px;
+}
+
+
+.reservation-info-item {
+
+    margin-bottom: 25px;
+}
+
+
+.reservation-info-item strong {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #e0b457;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+}
+
+
+.reservation-info-item span {
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.reservation-form {
+
+    padding: 50px 40px;
+}
+
+
+.reservation-form h3 {
+
+    margin: 0 0 8px;
+
+    color: #4a3023;
+
+    font-size: 28px;
+
+    font-weight: 700;
+}
+
+
+.form-subtitle {
+
+    margin-bottom: 32px;
+
+    color: #806b5e;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+
+    margin-bottom: 23px;
+}
+
+
+.form-label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #4a3023;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.form-control {
+
+    width: 100%;
+
+    height: 50px;
+
+    padding: 10px 14px;
+
+    border: 1px solid #dfd2c8;
+
+    border-radius: 2px;
+
+    background: #fffdfa;
+
+    color: #3b2a21;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.form-control:focus {
+
+    border-color: #d9a441;
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 0.15rem
+        rgba(217, 164, 65, 0.15);
+}
+
+
+select.form-control {
+
+    cursor: pointer;
+
+    appearance: auto;
+}
+
+
+/* =====================================================
+   PEOPLE NOTE
+===================================================== */
+
+.people-note {
+
+    margin-top: -10px;
+
+    margin-bottom: 5px;
+
+    color: #8a6a57;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+.people-note strong {
+
+    color: #a56f2c;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.reservation-submit {
+
+    width: 100%;
+
+    height: 54px;
+
+    margin-top: 12px;
+
+    border: none;
+
+    border-radius: 2px;
+
+    background: #d9a441;
+
+    color: #3b2a21;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.reservation-submit:hover {
+
+    background: #c28e2e;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(74, 48, 35, 0.15);
+}
+
+
+/* =====================================================
+   NOTICE
+===================================================== */
+
+.reservation-note {
+
+    margin-top: 25px;
+
+    padding: 17px 18px;
+
+    background: #f8f1e9;
+
+    border-left: 3px solid #d9a441;
+
+    color: #725d50;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+}
+
+
+.reservation-note strong {
+
+    color: #4a3023;
+}
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+.phone-reservation {
+
+    margin-top: 15px;
+
+    padding: 16px 18px;
+
+    background: #fff8e8;
+
+    border: 1px solid #ead6a8;
+
+    color: #6d503d;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+}
+
+
+.phone-reservation strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #8a5d20;
+
+    font-size: 14px;
+}
+
+
+.phone-number {
+
+    color: #4a3023;
+
+    font-weight: 700;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.reservation-footer {
+
+    padding: 45px 20px;
+
+    background: #3b2920;
+
+    color: #e8ddd5;
+
+    text-align: center;
+}
+
+
+.reservation-footer h4 {
+
+    margin: 0 0 10px;
+
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+
+.reservation-footer p {
+
+    margin: 5px 0;
+
+    font-size: 13px;
+}
+
+
+.footer-copy {
+
+    margin-top: 25px !important;
+
+    color: #a99a90;
+
+    font-size: 12px !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .reservation-hero {
+
+        min-height: 350px;
+
+    }
+
+
+    .reservation-hero h1 {
+
+        font-size: 40px;
+
+        letter-spacing: 3px;
+
+    }
+
+
+    .reservation-section {
+
+        padding: 55px 15px 65px;
+
+    }
+
+
+    .reservation-intro h2 {
+
+        font-size: 28px;
+
+    }
+
+
+    .reservation-card-left {
+
+        min-height: auto;
+
+        padding: 38px 25px;
+
+    }
+
+
+    .reservation-card-left h3 {
+
+        font-size: 26px;
+
+    }
+
+
+    .reservation-form {
+
+        padding: 38px 25px;
+
+    }
+
+
+    .reservation-form h3 {
+
+        font-size: 25px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<div id="navbar-container"></div>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="reservation-hero">
+
+    <div class="reservation-hero-content">
+
+        <h1>
+            ご予約
+        </h1>
+
+        <p>
+            Yummy Caféで、ゆったりとしたひとときをお楽しみください。
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<section class="reservation-section">
+
+    <div class="reservation-wrapper">
+
+
+        <!-- =================================================
+             INTRO
+        ================================================== -->
+
+        <div class="reservation-intro">
+
+            <h2>
+                テーブルを予約する
+            </h2>
+
+            <p>
+                ご友人とのお食事や、大切な方とのひととき、
+                ゆっくりコーヒーを楽しみたい時にも、
+                Yummy Caféで心地よい時間をお過ごしいただけます。
+                ご希望の日付、時間、人数を選択してご予約ください。
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CARD
+        ================================================== -->
+
+        <div class="reservation-card">
+
+            <div class="row g-0">
+
+
+                <!-- =================================================
+                     LEFT
+                ================================================== -->
+
+                <div class="col-lg-5">
+
+                    <div class="reservation-card-left">
+
+                        <h3>
+                            素敵な時間を<br>
+                            Yummy Caféで
+                        </h3>
+
+
+                        <p>
+                            香り豊かなコーヒー、
+                            手作りのスイーツ、
+                            おいしい料理とともに、
+                            大切な人と心地よい時間をお過ごしください。
+                        </p>
+
+
+                        <div class="reservation-info">
+
+
+                            <div class="reservation-info-item">
+
+                                <strong>
+                                    営業時間
+                                </strong>
+
+                                <span>
+                                    10:00 — 22:00
+                                </span>
+
+                            </div>
+
+
+                            <div class="reservation-info-item">
+
+                                <strong>
+                                    ランチ
+                                </strong>
+
+                                <span>
+                                    11:30 — 15:00
+                                </span>
+
+                            </div>
+
+
+                            <div class="reservation-info-item">
+
+                                <strong>
+                                    ディナー
+                                </strong>
+
+                                <span>
+                                    17:00 — 21:30
+                                </span>
+
+                            </div>
+
+
+                            <div class="reservation-info-item">
+
+                                <strong>
+                                    ご予約について
+                                </strong>
+
+                                <span>
+                                    1名様から8名様まで
+                                    オンラインでご予約いただけます。
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT
+                ================================================== -->
+
+                <div class="col-lg-7">
+
+                    <div class="reservation-form">
+
+                        <h3>
+                            ご予約情報
+                        </h3>
+
+
+                        <div class="form-subtitle">
+
+                            ご希望の日時と人数を入力してください。
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             DATE
+                        ================================================== -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="date"
+                                class="form-label"
+                            >
+                                日付
+                            </label>
+
+                            <input
+                                id="date"
+                                type="date"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             TIME
+                        ================================================== -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="time"
+                                class="form-label"
+                            >
+                                時間
+                            </label>
+
+
+                            <select
+                                id="time"
+                                class="form-control"
+                                required
+                            >
+
+                                <option
+                                    value=""
+                                    selected
+                                    disabled
+                                >
+                                    時間を選択してください
+                                </option>
+
+                                <option value="10:00">10:00</option>
+                                <option value="10:30">10:30</option>
+
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+
+                                <option value="12:00">12:00</option>
+                                <option value="12:30">12:30</option>
+
+                                <option value="13:00">13:00</option>
+                                <option value="13:30">13:30</option>
+
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+
+                                <option value="18:00">18:00</option>
+                                <option value="18:30">18:30</option>
+
+                                <option value="19:00">19:00</option>
+                                <option value="19:30">19:30</option>
+
+                                <option value="20:00">20:00</option>
+                                <option value="20:30">20:30</option>
+
+                                <option value="21:00">21:00</option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PEOPLE
+                        ================================================== -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="people"
+                                class="form-label"
+                            >
+                                人数
+                            </label>
+
+                            <input
+                                id="people"
+                                type="number"
+                                class="form-control"
+                                min="1"
+                                max="8"
+                                step="1"
+                                placeholder="人数を入力してください"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <div class="people-note">
+
+                            <strong>
+                                ※ 8名様までオンラインでご予約いただけます。
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             BUTTON
+                        ================================================== -->
+
+                        <button
+                            type="button"
+                            id="reservationSubmit"
+                            class="reservation-submit"
+                            onclick="goToReservationInfo()"
+                        >
+                            予約
+                        </button>
+
+
+
+                        <!-- =================================================
+                             NOTICE
+                        ================================================== -->
+
+                        <div class="reservation-note">
+
+                            <strong>
+                                ご案内
+                            </strong>
+
+                            <br>
+
+                            ご予約は10:00〜21:00の時間帯で承っております。
+                            30分単位でご予約いただけます。
+                            ご予約時間に遅れないようご来店ください。
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PHONE
+                        ================================================== -->
+
+                        <div class="phone-reservation">
+
+                            <strong>
+                                9名様以上でのご予約
+                            </strong>
+
+                            9名様以上でのご予約は、
+                            お電話にてお問い合わせください。
+
+                            <br>
+
+                            <span class="phone-number">
+                                TEL：000-0000-0000
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="reservation-footer">
+
+    <h4>
+        Yummy Café
+    </h4>
+
+    <p>
+        Coffee • Cakes • Pasta • Good Moments
+    </p>
+
+    <p>
+        10:00 — 22:00
+    </p>
+
+    <p class="footer-copy">
+        © 2026 Yummy Café
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   日期限制
+===================================================== */
+
+const dateInput =
+    document.getElementById("date");
+
+
+function setMinimumDate() {
+
+    const today = new Date();
+
+    const year =
+        today.getFullYear();
+
+    const month =
+        String(
+            today.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            today.getDate()
+        ).padStart(2, "0");
+
+    dateInput.min =
+        `${year}-${month}-${day}`;
+
+}
+
+
+setMinimumDate();
+
+
+
+/* =====================================================
+   预约按钮
+===================================================== */
+
+function goToReservationInfo() {
+
+    const date =
+        document.getElementById("date").value;
+
+    const time =
+        document.getElementById("time").value;
+
+    const people =
+        document.getElementById("people").value;
+
+
+
+    /* =================================================
+       检查完整
+    ================================================= */
+
+    if (
+        !date ||
+        !time ||
+        !people
+    ) {
+
+        alert(
+            "日付、時間、人数をすべて入力してください。"
+        );
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       检查人数
+    ================================================= */
+
+    const guestCount =
+        Number(people);
+
+
+    if (
+        !Number.isInteger(guestCount) ||
+        guestCount < 1
+    ) {
+
+        alert(
+            "人数を正しく入力してください。"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        guestCount > 8
+    ) {
+
+        alert(
+            "9名様以上でのご予約は、お電話にてお問い合わせください。"
+        );
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       保存预约信息
+    ================================================= */
+
+    sessionStorage.setItem(
+        "reservationDate",
+        date
+    );
+
+
+    sessionStorage.setItem(
+        "reservationTime",
+        time
+    );
+
+
+    sessionStorage.setItem(
+        "reservationPeople",
+        String(guestCount)
+    );
+
+
+
+    /* =================================================
+       跳转个人信息页面
+    ================================================= */
+
+    window.location.href =
+        "reservation-info.html";
+
+}
+
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+fetch("navbar.html")
+
+    .then(
+        response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "navbar.html の読み込みに失敗しました。"
+                );
+
+            }
+
+            return response.text();
+
+        }
+    )
+
+    .then(
+        data => {
+
+            document.getElementById(
+                "navbar-container"
+            ).innerHTML = data;
+
+
+
+            /* =================================================
+               当前页面黄色框
+            ================================================= */
+
+            const currentPage =
+                window.location.pathname
+                    .split("/")
+                    .pop() ||
+                "index.html";
+
+
+            const navItems =
+                document.querySelectorAll(
+                    "#navbar a[data-page]"
+                );
+
+
+            navItems.forEach(
+                function(item) {
+
+                    const page =
+                        item.getAttribute(
+                            "data-page"
+                        );
+
+
+                    if (
+                        page === currentPage
+                    ) {
+
+                        item.classList.add(
+                            "active-page"
+                        );
+
+                    }
+
+                }
+            );
+
+
+
+            /* =================================================
+               Navbar 滚动效果
+            ================================================= */
+
+            const navbar =
+                document.getElementById(
+                    "navbar"
+                );
+
+
+            if (navbar) {
+
+                function updateNavbar() {
+
+                    if (
+                        window.scrollY > 50
+                    ) {
+
+                        navbar.classList.add(
+                            "scrolled"
+                        );
+
+                    } else {
+
+                        navbar.classList.remove(
+                            "scrolled"
+                        );
+
+                    }
+
+                }
+
+
+                window.addEventListener(
+                    "scroll",
+                    updateNavbar
+                );
+
+
+                updateNavbar();
+
+            }
+
+        }
+    )
+
+    .catch(
+        error => {
+
+            console.error(
+                "ナビゲーションの読み込みに失敗しました:",
+                error
+            );
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
