@@ -367,11 +367,15 @@ body {
 ===================================================== */
 
 .history-timeline {
-  max-width: 900px;
+  width: 760px;
 
-  margin: auto;
+  max-width: 100%;
+
+  margin: 0 auto;
 
   position: relative;
+
+  transform: translateX(-45px);
 }
 
 .history-timeline::before {
@@ -397,6 +401,8 @@ body {
 
   grid-template-columns: 1fr 1fr;
 
+  width: 100%;
+
   min-height: 190px;
 
   position: relative;
@@ -409,7 +415,7 @@ body {
 
   justify-content: flex-end;
 
-  padding-right: 55px;
+  padding-right: 95px;
 
   color: #a07855;
 
@@ -762,6 +768,10 @@ body {
     font-size: 15px;
   }
 
+  .history-timeline {
+    transform: none;
+  }
+
   .history-timeline::before {
     left: 20px;
   }
@@ -941,6 +951,8 @@ body {
 
   .history-timeline {
     max-width: 1000px;
+
+    transform: translateX(-45px);
   }
 
 }
