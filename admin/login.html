@@ -137,7 +137,7 @@
         fetch("/api/admin/me")
             .then(response => {
                 if (response.ok) {
-                    window.location.replace("/admin/index.html");
+                    window.location.replace("/admin/reservations.html");
                 }
             })
             .catch(() => {});
@@ -171,7 +171,7 @@
                 }
 
                 window.location.replace(
-                    result.redirect || "/admin/index.html"
+                    result.redirect || "/admin/reservations.html"
                 );
             } catch (error) {
                 message.textContent =
