@@ -226,7 +226,7 @@ app.post("/api/admin/login", (req, res) => {
                         return res.json({
                             success: true,
                             message: "ログインしました。",
-                            redirect: "/admin/reservations.html"
+                            redirect: "/admin/reservations.html",
                             staff: {
                                 id: staff.id,
                                 username: staff.username
