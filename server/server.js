@@ -226,7 +226,7 @@ app.post("/api/admin/login", (req, res) => {
                         return res.json({
                             success: true,
                             message: "ログインしました。",
-                            redirect: "/admin/index.html",
+                            redirect: "/admin/reservations.html"
                             staff: {
                                 id: staff.id,
                                 username: staff.username
@@ -303,7 +303,7 @@ app.post("/api/admin/logout", (req, res) => {
 // 登录页是唯一允许未登录访问的后台 HTML 页面。
 app.get("/admin/login.html", (req, res) => {
     if (req.session && req.session.staff) {
-        return res.redirect("/admin/index.html");
+        return res.redirect("/admin/reservations.html");
     }
 
     return res.sendFile(
