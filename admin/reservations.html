@@ -2,13 +2,8 @@
 <html lang="ja">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>予約管理 | Yummy Café</title>
 
@@ -18,14 +13,9 @@
 >
 
 <style>
-
 body {
     background: #fdf6f0;
-    font-family:
-        "Segoe UI",
-        "Yu Gothic",
-        "Meiryo",
-        sans-serif;
+    font-family: "Segoe UI", "Yu Gothic", "Meiryo", sans-serif;
     color: #4b3425;
 }
 
@@ -72,21 +62,57 @@ h2 {
     color: #777;
 }
 
+/* Logout button */
+.logout-btn {
+    background: #ffffff;
+    color: #8b3e32;
+    border: 1px solid #8b3e32;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.logout-btn:hover {
+    background: #8b3e32;
+    color: #ffffff;
+}
+
+@media (max-width: 576px) {
+    .page-header {
+        align-items: flex-start !important;
+    }
+
+    .logout-btn {
+        padding: 7px 12px;
+    }
+}
 </style>
 
 </head>
 
-
 <body>
-
 
 <div class="container mt-4 mb-5">
 
-    <h2 class="mb-4">
-        予約管理
-    </h2>
+    <!-- PAGE HEADER -->
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
 
+        <h2 class="mb-0">
+            予約管理
+        </h2>
 
+        <button
+            type="button"
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            ログアウト
+        </button>
+
+    </div>
+
+    <!-- RESERVATION TABLE -->
     <div class="table-box">
 
         <div class="table-responsive">
@@ -94,43 +120,24 @@ h2 {
             <table class="table table-bordered table-hover">
 
                 <thead>
-
                     <tr>
-
                         <th>ID</th>
-
                         <th>お名前</th>
-
                         <th>電話番号</th>
-
                         <th>メールアドレス</th>
-
                         <th>日付</th>
-
                         <th>時間</th>
-
                         <th>人数</th>
-
                         <th>操作</th>
-
                     </tr>
-
                 </thead>
 
-
                 <tbody id="reservation-list">
-
                     <tr>
-
-                        <td
-                            colspan="8"
-                            class="message"
-                        >
+                        <td colspan="8" class="message">
                             読み込み中...
                         </td>
-
                     </tr>
-
                 </tbody>
 
             </table>
@@ -141,9 +148,7 @@ h2 {
 
 </div>
 
-
 <script>
-
 
 // =====================================================
 // LOAD RESERVATIONS
@@ -151,274 +156,172 @@ h2 {
 
 async function loadReservations() {
 
-    const list =
-        document.getElementById(
-            "reservation-list"
-        );
-
+    const list = document.getElementById("reservation-list");
 
     try {
 
-        console.log(
-            "予約データを取得しています..."
-        );
+        const response = await fetch("/api/reservations");
 
-
-        const response =
-            await fetch(
-                "/api/reservations"
-            );
-
-
-        console.log(
-            "API status:",
-            response.status
-        );
-
+        if (response.status === 401) {
+            window.location.href = "/admin/login.html";
+            return;
+        }
 
         if (!response.ok) {
-
-            throw new Error(
-                "API error: " +
-                response.status
-            );
-
+            throw new Error("API error: " + response.status);
         }
 
+        const result = await response.json();
 
-        const result =
-            await response.json();
+        const reservations = result.reservations;
 
-
-        console.log(
-            "API result:",
-            result
-        );
-
-
-        // =================================================
-        // IMPORTANT
-        // =================================================
-        //
-        // server.js 返回：
-        //
-        // {
-        //     success: true,
-        //     reservations: [...]
-        // }
-        //
-        // 所以必须读取：
-        //
-        // result.reservations
-        // =================================================
-
-        const reservations =
-            result.reservations;
-
-
-        if (
-            !Array.isArray(
-                reservations
-            )
-        ) {
-
-            throw new Error(
-                "reservations は配列ではありません。"
-            );
-
+        if (!Array.isArray(reservations)) {
+            throw new Error("reservations は配列ではありません。");
         }
 
-
-        // =================================================
-        // NO DATA
-        // =================================================
-
-        if (
-            reservations.length === 0
-        ) {
+        if (reservations.length === 0) {
 
             list.innerHTML = `
-
                 <tr>
-
-                    <td
-                        colspan="8"
-                        class="message"
-                    >
+                    <td colspan="8" class="message">
                         現在、予約はありません。
                     </td>
-
                 </tr>
-
             `;
 
             return;
-
         }
 
+        list.innerHTML = reservations.map(r => `
 
-        // =================================================
-        // DISPLAY
-        // =================================================
+            <tr>
+                <td>${r.id}</td>
+                <td>${r.name || ""}</td>
+                <td>${r.phone || ""}</td>
+                <td>${r.email || ""}</td>
+                <td>${r.date || ""}</td>
+                <td>${r.time || ""}</td>
+                <td>${r.people || ""}</td>
 
-        list.innerHTML =
-            reservations.map(
-                r => `
+                <td>
+                    <button
+                        type="button"
+                        class="btn btn-danger btn-sm delete-btn"
+                        onclick="deleteReservation(${Number(r.id)})"
+                    >
+                        削除
+                    </button>
+                </td>
+            </tr>
 
-                <tr>
-
-                    <td>
-                        ${r.id}
-                    </td>
-
-                    <td>
-                        ${r.name || ""}
-                    </td>
-
-                    <td>
-                        ${r.phone || ""}
-                    </td>
-
-                    <td>
-                        ${r.email || ""}
-                    </td>
-
-                    <td>
-                        ${r.date || ""}
-                    </td>
-
-                    <td>
-                        ${r.time || ""}
-                    </td>
-
-                    <td>
-                        ${r.people || ""}
-                    </td>
-
-                    <td>
-
-                        <button
-                            type="button"
-                            class="btn btn-danger btn-sm delete-btn"
-                            onclick="deleteReservation(${r.id})"
-                        >
-                            削除
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            `
-            ).join("");
-
+        `).join("");
 
     } catch (error) {
 
-        console.error(
-            "予約読み込みエラー:",
-            error
-        );
-
+        console.error("予約読み込みエラー:", error);
 
         list.innerHTML = `
-
             <tr>
-
-                <td
-                    colspan="8"
-                    class="message text-danger"
-                >
-
+                <td colspan="8" class="message text-danger">
                     予約情報を読み込めませんでした。
-
                     <br>
-
                     <small>
                         F12 → Console を確認してください。
                     </small>
-
                 </td>
-
             </tr>
-
         `;
-
     }
-
 }
 
 
 // =====================================================
-// DELETE
+// DELETE RESERVATION
 // =====================================================
 
 async function deleteReservation(id) {
 
-
-    if (
-        !confirm(
-            "この予約を削除しますか？"
-        )
-    ) {
-
+    if (!confirm("この予約を削除しますか？")) {
         return;
-
     }
-
 
     try {
 
+        const response = await fetch("/api/reservations/" + id, {
+            method: "DELETE"
+        });
 
-        const response =
-            await fetch(
-                "/api/reservations/" + id,
-                {
-                    method: "DELETE"
-                }
-            );
-
-
-        const result =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                result.message ||
-                "削除に失敗しました。"
-            );
-
+        if (response.status === 401) {
+            window.location.href = "/admin/login.html";
+            return;
         }
 
+        const result = await response.json();
 
-        alert(
-            "予約を削除しました。"
-        );
+        if (!response.ok) {
+            throw new Error(result.message || "削除に失敗しました。");
+        }
 
-
-        // 重新读取数据库
+        alert("予約を削除しました。");
 
         loadReservations();
 
+    } catch (error) {
+
+        console.error("削除エラー:", error);
+
+        alert(error.message || "予約の削除に失敗しました。");
+    }
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+document.getElementById("logoutBtn").addEventListener("click", async function () {
+
+    if (!confirm("ログアウトしますか？")) {
+        return;
+    }
+
+    const button = this;
+    button.disabled = true;
+    button.textContent = "ログアウト中...";
+
+    try {
+
+        const response = await fetch("/api/admin/logout", {
+            method: "POST",
+            credentials: "same-origin"
+        });
+
+        if (!response.ok) {
+            throw new Error("ログアウトに失敗しました。");
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            window.location.replace("/admin/login.html");
+
+        } else {
+
+            throw new Error("ログアウトに失敗しました。");
+        }
 
     } catch (error) {
 
-        console.error(
-            "削除エラー:",
-            error
-        );
+        console.error("Logout error:", error);
 
+        alert("ログアウトに失敗しました。もう一度お試しください。");
 
-        alert(
-            error.message ||
-            "予約の削除に失敗しました。"
-        );
-
+        button.disabled = false;
+        button.textContent = "ログアウト";
     }
 
-}
+});
 
 
 // =====================================================
@@ -427,10 +330,8 @@ async function deleteReservation(id) {
 
 loadReservations();
 
-
 </script>
 
-
 </body>
-
 </html>
+```
