@@ -74,25 +74,113 @@ app.use(session({
 }));
 
 // =====================================================
-// STAFF TABLE
+// STAFF TABLE & INITIAL ADMIN
 // =====================================================
 
-// 初回起動時に管理者テーブルを作成
-db.run(`
-    CREATE TABLE IF NOT EXISTS staff_users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT NOT NULL UNIQUE,
-        password_hash TEXT NOT NULL,
-        created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-    )
-`, (err) => {
-    if (err) {
-        console.error("Staff table initialization failed:", err);
-        process.exit(1);
-    }
+function initializeStaffTable() {
+    db.run(`
+        CREATE TABLE IF NOT EXISTS staff_users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            password_hash TEXT NOT NULL,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+    `, (err) => {
+        if (err) {
+            console.error("Staff table initialization failed:", err);
+            process.exit(1);
+            return;
+        }
 
-    console.log("Staff authentication table is ready.");
-});
+        console.log("Staff authentication table is ready.");
+
+        const adminUsername = String(
+            process.env.ADMIN_USERNAME || ""
+        ).trim();
+
+        const adminPassword = String(
+            process.env.ADMIN_PASSWORD || ""
+        );
+
+        // Render 上必须设置管理员账号和密码
+        if (!adminUsername || !adminPassword) {
+            if (isProduction) {
+                console.error(
+                    "ADMIN_USERNAME と ADMIN_PASSWORD を設定してください。"
+                );
+                process.exit(1);
+                return;
+            }
+
+            console.warn(
+                "管理者の初期設定がありません。既存の管理者アカウントを使用してください。"
+            );
+
+            startServer();
+            return;
+        }
+
+        if (adminPassword.length < 12) {
+            console.error("管理者パスワードは12文字以上にしてください。");
+            process.exit(1);
+            return;
+        }
+
+        // 确认管理员是否已经存在
+        db.get(
+            "SELECT id FROM staff_users WHERE username = ?",
+            [adminUsername],
+            (queryErr, staff) => {
+                if (queryErr) {
+                    console.error("Admin query failed:", queryErr);
+                    process.exit(1);
+                    return;
+                }
+
+                // 已存在就不重复创建
+                if (staff) {
+                    console.log("Admin account already exists.");
+                    startServer();
+                    return;
+                }
+
+                // 不存在则创建管理员
+                bcrypt.hash(adminPassword, 12, (hashErr, hash) => {
+                    if (hashErr) {
+                        console.error("Admin password hash failed:", hashErr);
+                        process.exit(1);
+                        return;
+                    }
+
+                    db.run(
+                        `INSERT INTO staff_users
+                         (username, password_hash)
+                         VALUES (?, ?)`,
+                        [adminUsername, hash],
+                        function (insertErr) {
+                            if (insertErr) {
+                                console.error(
+                                    "Admin creation failed:",
+                                    insertErr
+                                );
+                                process.exit(1);
+                                return;
+                            }
+
+                            console.log(
+                                "Initial admin account created:",
+                                adminUsername
+                            );
+
+                            startServer();
+                        }
+                    );
+                });
+            }
+        );
+    });
+}
+
 
 // =====================================================
 // AUTHENTICATION MIDDLEWARE
@@ -656,13 +744,26 @@ app.use((err, req, res, next) => {
 // START SERVER
 // =====================================================
 
-app.listen(PORT, () => {
-    console.log("");
-    console.log("========================================");
-    console.log("Yummy Café サーバーが起動しました。");
-    console.log("http://localhost:" + PORT);
-    console.log("管理者ログイン: http://localhost:" + PORT + "/admin/login.html");
-    console.log("予約管理: http://localhost:" + PORT + "/admin/reservations.html");
-    console.log("========================================");
-    console.log("");
-});
+function startServer() {
+    app.listen(PORT, () => {
+        console.log("");
+        console.log("========================================");
+        console.log("Yummy Café サーバーが起動しました。");
+        console.log("http://localhost:" + PORT);
+        console.log(
+            "管理者ログイン: http://localhost:" +
+            PORT +
+            "/admin/login.html"
+        );
+        console.log(
+            "予約管理: http://localhost:" +
+            PORT +
+            "/admin/reservations.html"
+        );
+        console.log("========================================");
+        console.log("");
+    });
+}
+
+// 初始化数据库和管理员后再启动服务器
+initializeStaffTable();
