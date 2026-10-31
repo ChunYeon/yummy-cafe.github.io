@@ -1,13 +1,10 @@
-
 require("dotenv").config({
     path: require("path").join(__dirname, "../.env")
 });
 
 const express = require("express");
 const cors = require("cors");
-const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 
@@ -44,9 +41,6 @@ if (isProduction) {
 // BASIC SETTINGS
 // =====================================================
 
-// 同じ Express サーバーから配信する構成を想定。
-// 別オリジンのサイトから API を使う場合は CORS 設定を
-// 許可するオリジンだけに限定してください。
 app.use(cors());
 
 app.use(express.json({ limit: "1mb" }));
@@ -57,17 +51,14 @@ app.use(express.urlencoded({ extended: true }));
 // =====================================================
 
 const sessionDirectory = path.join(__dirname, "..");
-const sessionDatabase = path.join(
-    sessionDirectory,
-    "sessions.sqlite"
-);
 
 app.use(session({
     name: "yummy_admin_session",
+
     secret: sessionSecret,
 
     store: new SQLiteStore({
-        db: path.basename(sessionDatabase),
+        db: "sessions.sqlite",
         dir: sessionDirectory
     }),
 
@@ -83,25 +74,10 @@ app.use(session({
 }));
 
 // =====================================================
-// UPLOADS
-// =====================================================
-
-// 画像アップロード先
-const uploadsDirectory = path.join(__dirname, "../uploads");
-
-fs.mkdirSync(uploadsDirectory, { recursive: true });
-
-app.use(
-    "/uploads",
-    express.static(uploadsDirectory)
-);
-
-// =====================================================
 // STAFF TABLE
 // =====================================================
 
-// 初回起動時にスタッフ用テーブルを作成。
-// create-admin.js でも同じテーブルを作成します。
+// 初回起動時に管理者テーブルを作成
 db.run(`
     CREATE TABLE IF NOT EXISTS staff_users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -122,6 +98,7 @@ db.run(`
 // AUTHENTICATION MIDDLEWARE
 // =====================================================
 
+// 管理者専用 API
 function requireStaffApi(req, res, next) {
     if (req.session && req.session.staff) {
         return next();
@@ -134,6 +111,7 @@ function requireStaffApi(req, res, next) {
     });
 }
 
+// 管理者専用ページ
 function requireStaffPage(req, res, next) {
     if (req.session && req.session.staff) {
         return next();
@@ -180,27 +158,15 @@ app.post("/api/admin/login", (req, res) => {
                 });
             }
 
-            bcrypt.compare(password, staff.password_hash, (hashErr, valid) => {
-                if (hashErr) {
-                    console.error("Password verification failed:", hashErr);
-
-                    return res.status(500).json({
-                        success: false,
-                        message: "ログイン処理に失敗しました。"
-                    });
-                }
-
-                if (!valid) {
-                    return res.status(401).json({
-                        success: false,
-                        message: "ユーザー名またはパスワードが正しくありません。"
-                    });
-                }
-
-                // 登录成功后重新生成 session ID
-                req.session.regenerate((sessionErr) => {
-                    if (sessionErr) {
-                        console.error("Session regeneration failed:", sessionErr);
+            bcrypt.compare(
+                password,
+                staff.password_hash,
+                (hashErr, valid) => {
+                    if (hashErr) {
+                        console.error(
+                            "Password verification failed:",
+                            hashErr
+                        );
 
                         return res.status(500).json({
                             success: false,
@@ -208,33 +174,58 @@ app.post("/api/admin/login", (req, res) => {
                         });
                     }
 
-                    req.session.staff = {
-                        id: staff.id,
-                        username: staff.username
-                    };
+                    if (!valid) {
+                        return res.status(401).json({
+                            success: false,
+                            message: "ユーザー名またはパスワードが正しくありません。"
+                        });
+                    }
 
-                    req.session.save((saveErr) => {
-                        if (saveErr) {
-                            console.error("Session save failed:", saveErr);
+                    // ログイン成功後、Session IDを再生成
+                    req.session.regenerate((sessionErr) => {
+                        if (sessionErr) {
+                            console.error(
+                                "Session regeneration failed:",
+                                sessionErr
+                            );
 
                             return res.status(500).json({
                                 success: false,
-                                message: "ログイン状態を保存できませんでした。"
+                                message: "ログイン処理に失敗しました。"
                             });
                         }
 
-                        return res.json({
-                            success: true,
-                            message: "ログインしました。",
-                            redirect: "/admin/reservations.html",
-                            staff: {
-                                id: staff.id,
-                                username: staff.username
+                        req.session.staff = {
+                            id: staff.id,
+                            username: staff.username
+                        };
+
+                        req.session.save((saveErr) => {
+                            if (saveErr) {
+                                console.error(
+                                    "Session save failed:",
+                                    saveErr
+                                );
+
+                                return res.status(500).json({
+                                    success: false,
+                                    message: "ログイン状態を保存できませんでした。"
+                                });
                             }
+
+                            return res.json({
+                                success: true,
+                                message: "ログインしました。",
+                                redirect: "/admin/reservations.html",
+                                staff: {
+                                    id: staff.id,
+                                    username: staff.username
+                                }
+                            });
                         });
                     });
-                });
-            });
+                }
+            );
         }
     );
 });
@@ -298,9 +289,10 @@ app.post("/api/admin/logout", (req, res) => {
 
 // =====================================================
 // ADMIN LOGIN PAGE
+// GET /admin/login.html
 // =====================================================
 
-// 登录页是唯一允许未登录访问的后台 HTML 页面。
+// 未ログインでもアクセスできる管理者ログインページ
 app.get("/admin/login.html", (req, res) => {
     if (req.session && req.session.staff) {
         return res.redirect("/admin/reservations.html");
@@ -315,14 +307,14 @@ app.get("/admin/login.html", (req, res) => {
 // ADMIN STATIC FILES
 // =====================================================
 
-// 必须登录后才能访问 index.html、foods.html、
-// reservations.html 以及 admin 目录中的其他静态文件。
+// 管理者ログイン後のみアクセス可能
+// index.html は自動表示しない
 app.use(
     "/admin",
     requireStaffPage,
     express.static(
         path.join(__dirname, "../admin"),
-        { index: "index.html" }
+        { index: false }
     )
 );
 
@@ -330,8 +322,7 @@ app.use(
 // PUBLIC WEBSITE
 // =====================================================
 
-// public 目录只放公开网站文件。
-// 不要将后台管理 HTML 放入 public 目录。
+// 顧客用の公開ページ
 app.use(
     express.static(
         path.join(__dirname, "../public")
@@ -339,138 +330,49 @@ app.use(
 );
 
 // =====================================================
-// FILE UPLOAD
-// =====================================================
-
-const upload = multer({
-    dest: uploadsDirectory,
-    limits: {
-        fileSize: 5 * 1024 * 1024,
-        files: 1
-    }
-});
-
-// =====================================================
-// CUSTOMER REGISTER
-// POST /api/register
-// =====================================================
-
-app.post("/api/register", (req, res) => {
-    const { username, email, password } = req.body;
-
-    if (!username || !email || !password) {
-        return res.status(400).json({
-            success: false,
-            message: "必要な情報を入力してください。"
-        });
-    }
-
-    // 保留现有顾客注册逻辑。
-    // 此处沿用原项目的 users 表字段结构。
-    db.run(
-        `INSERT INTO users (username, email, password)
-         VALUES (?, ?, ?)`,
-        [username, email, password],
-        function (err) {
-            if (err) {
-                console.error("Register error:", err);
-
-                return res.status(500).json({
-                    success: false,
-                    message: "登録に失敗しました。"
-                });
-            }
-
-            return res.json({
-                success: true,
-                message: "登録が完了しました。",
-                userId: this.lastID
-            });
-        }
-    );
-});
-
-// =====================================================
-// CUSTOMER LOGIN
-// POST /api/login
-// =====================================================
-
-app.post("/api/login", (req, res) => {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-        return res.status(400).json({
-            success: false,
-            message: "メールアドレスとパスワードを入力してください。"
-        });
-    }
-
-    db.get(
-        `SELECT * FROM users
-         WHERE email = ? AND password = ?`,
-        [email, password],
-        (err, row) => {
-            if (err) {
-                console.error("Customer login error:", err);
-
-                return res.status(500).json({
-                    success: false,
-                    message: "ログインに失敗しました。"
-                });
-            }
-
-            if (!row) {
-                return res.status(401).json({
-                    success: false,
-                    message: "メールアドレスまたはパスワードが正しくありません。"
-                });
-            }
-
-            return res.json({
-                success: true,
-                message: "ログインしました。",
-                user: {
-                    id: row.id,
-                    username: row.username,
-                    email: row.email
-                }
-            });
-        }
-    );
-});
-
-// =====================================================
 // CREATE RESERVATION
 // POST /api/reserve
-// 公開接口：顾客不需要员工登录
+// 顧客はログイン不要
 // =====================================================
 
 app.post("/api/reserve", (req, res) => {
-    const { date, time, people, name, phone, email } = req.body;
+    const date = String(req.body.date || "").trim();
+    const time = String(req.body.time || "").trim();
+    const name = String(req.body.name || "").trim();
+    const phone = String(req.body.phone || "").trim();
+    const email = String(req.body.email || "").trim();
 
-    if (!date || !time || !people || !name || !phone || !email) {
+    const guestCount = Number(req.body.people);
+
+    // 必須項目の確認
+    if (
+        !date ||
+        !time ||
+        !name ||
+        !phone ||
+        !email ||
+        req.body.people === undefined ||
+        req.body.people === ""
+    ) {
         return res.status(400).json({
             success: false,
             message: "予約情報をすべて入力してください。"
         });
     }
 
-    const guestCount = Number(people);
-
-    if (!Number.isInteger(guestCount) || guestCount < 1) {
+    // 人数チェック
+    if (
+        !Number.isInteger(guestCount) ||
+        guestCount < 1 ||
+        guestCount > 8
+    ) {
         return res.status(400).json({
             success: false,
-            message: "人数を正しく入力してください。"
+            message: "ご利用人数は1名様から8名様までです。"
         });
     }
 
-    if (guestCount > 8) {
-        return res.status(400).json({
-            success: false,
-            message: "9名様以上のご予約は、お電話でお問い合わせください。"
-        });
-    }
-
+    // 予約可能時間
     const allowedTimes = [
         "10:00", "10:30",
         "11:00", "11:30",
@@ -493,11 +395,27 @@ app.post("/api/reserve", (req, res) => {
         });
     }
 
+    // 日付格式检查
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        return res.status(400).json({
+            success: false,
+            message: "予約日が正しくありません。"
+        });
+    }
+
+    // 预约数据写入 SQLite
     db.run(
         `INSERT INTO reservations
          (date, time, people, name, phone, email)
          VALUES (?, ?, ?, ?, ?, ?)`,
-        [date, time, guestCount, name, phone, email],
+        [
+            date,
+            time,
+            guestCount,
+            name,
+            phone,
+            email
+        ],
         function (err) {
             if (err) {
                 console.error("Reservation error:", err);
@@ -521,10 +439,13 @@ app.post("/api/reserve", (req, res) => {
 
 // =====================================================
 // PROTECT RESERVATION MANAGEMENT API
-// All /api/reservations routes require staff login.
+// 管理者ログインが必要
 // =====================================================
 
-app.use("/api/reservations", requireStaffApi);
+app.use(
+    "/api/reservations",
+    requireStaffApi
+);
 
 // =====================================================
 // GET ALL RESERVATIONS
@@ -533,7 +454,14 @@ app.use("/api/reservations", requireStaffApi);
 
 app.get("/api/reservations", (req, res) => {
     db.all(
-        `SELECT id, date, time, people, name, phone, email
+        `SELECT
+            id,
+            date,
+            time,
+            people,
+            name,
+            phone,
+            email
          FROM reservations
          ORDER BY date ASC, time ASC, id ASC`,
         [],
@@ -571,8 +499,16 @@ app.get("/api/reservations/:id", (req, res) => {
     }
 
     db.get(
-        `SELECT id, date, time, people, name, phone, email
-         FROM reservations WHERE id = ?`,
+        `SELECT
+            id,
+            date,
+            time,
+            people,
+            name,
+            phone,
+            email
+         FROM reservations
+         WHERE id = ?`,
         [id],
         (err, row) => {
             if (err) {
@@ -643,64 +579,9 @@ app.delete("/api/reservations/:id", (req, res) => {
 });
 
 // =====================================================
-// CREATE FOOD
-// POST /api/food
-// 只有登录员工可以新增菜单
-// =====================================================
-
-app.post(
-    "/api/food",
-    requireStaffApi,
-    upload.single("image"),
-    (req, res) => {
-        const { name, price, desc } = req.body;
-
-        if (!name || price === undefined || price === "") {
-            return res.status(400).json({
-                success: false,
-                message: "商品名と価格を入力してください。"
-            });
-        }
-
-        const numericPrice = Number(price);
-
-        if (!Number.isFinite(numericPrice) || numericPrice < 0) {
-            return res.status(400).json({
-                success: false,
-                message: "価格を正しく入力してください。"
-            });
-        }
-
-        const image = req.file ? req.file.filename : "";
-
-        db.run(
-            `INSERT INTO foods (name, price, image, desc)
-             VALUES (?, ?, ?, ?)`,
-            [name, numericPrice, image, desc || ""],
-            function (err) {
-                if (err) {
-                    console.error("Food insert error:", err);
-
-                    return res.status(500).json({
-                        success: false,
-                        message: "商品の登録に失敗しました。"
-                    });
-                }
-
-                return res.json({
-                    success: true,
-                    message: "商品を登録しました。",
-                    foodId: this.lastID
-                });
-            }
-        );
-    }
-);
-
-// =====================================================
 // GET FOODS
 // GET /api/foods
-// 公開接口：顾客网站仍然可以读取菜单
+// 顧客サイト用：メニュー情報の読み取り
 // =====================================================
 
 app.get("/api/foods", (req, res) => {
@@ -730,13 +611,6 @@ app.get("/api/foods", (req, res) => {
 // =====================================================
 
 app.use((err, req, res, next) => {
-    if (err instanceof multer.MulterError) {
-        return res.status(400).json({
-            success: false,
-            message: "アップロードに失敗しました。ファイルサイズは5MB以下にしてください。"
-        });
-    }
-
     console.error("Unhandled server error:", err);
 
     return res.status(500).json({
@@ -754,7 +628,8 @@ app.listen(PORT, () => {
     console.log("========================================");
     console.log("Yummy Café サーバーが起動しました。");
     console.log("http://localhost:" + PORT);
-    console.log("管理画面: http://localhost:" + PORT + "/admin/");
+    console.log("管理者ログイン: http://localhost:" + PORT + "/admin/login.html");
+    console.log("予約管理: http://localhost:" + PORT + "/admin/reservations.html");
     console.log("========================================");
     console.log("");
 });
