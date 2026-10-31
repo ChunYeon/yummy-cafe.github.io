@@ -438,6 +438,39 @@ app.post("/api/reserve", (req, res) => {
 });
 
 // =====================================================
+// CLEAR ALL RESERVATIONS
+// POST /api/admin/clear-reservations
+// 管理员专用：清空全部预约
+// =====================================================
+
+app.post(
+    "/api/admin/clear-reservations",
+    requireStaffApi,
+    (req, res) => {
+        db.run(
+            "DELETE FROM reservations",
+            [],
+            function (err) {
+                if (err) {
+                    console.error("Clear reservations error:", err);
+
+                    return res.status(500).json({
+                        success: false,
+                        message: "予約情報の削除に失敗しました。"
+                    });
+                }
+
+                return res.json({
+                    success: true,
+                    message: "すべての予約情報を削除しました。",
+                    deletedCount: this.changes
+                });
+            }
+        );
+    }
+);
+
+// =====================================================
 // PROTECT RESERVATION MANAGEMENT API
 // 管理者ログインが必要
 // =====================================================
