@@ -1,253 +1,259 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>予約管理 | Yummy Café</title>
-
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
->
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-body {
-    background: #fdf6f0;
-    font-family: "Segoe UI", "Yu Gothic", "Meiryo", sans-serif;
-    color: #4b3425;
-}
-
-.container {
-    max-width: 1200px;
-}
-
-h2 {
-    color: #6f4e37;
-    font-weight: 700;
-}
-
-.table-box {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.08);
-}
-
-.table {
-    margin-bottom: 0;
-    vertical-align: middle;
-}
-
-.table thead th {
-    background: #6f4e37 !important;
-    color: #ffffff !important;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.table tbody td {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.delete-btn {
-    white-space: nowrap;
-}
-
-.message {
-    text-align: center;
-    padding: 30px !important;
-    color: #777;
-}
-
-/* Logout button */
-.logout-btn {
-    background: #ffffff;
-    color: #8b3e32;
-    border: 1px solid #8b3e32;
-    border-radius: 8px;
-    padding: 8px 18px;
-    font-weight: 600;
-    transition: .2s;
-}
-
-.logout-btn:hover {
-    background: #8b3e32;
-    color: #ffffff;
-}
-
-@media (max-width: 576px) {
-    .page-header {
-        align-items: flex-start !important;
+    body {
+        background: #fdf6f0;
+        font-family: "Segoe UI", "Yu Gothic", "Meiryo", sans-serif;
+        color: #4b3425;
     }
-
+    .container { max-width: 1200px; }
+    h2, h4 { color: #6f4e37; font-weight: 700; }
+    .page-header { gap: 12px; }
     .logout-btn {
-        padding: 7px 12px;
+        background: #fff;
+        color: #8b3e32;
+        border: 1px solid #8b3e32;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-weight: 600;
+        transition: .2s;
+        white-space: nowrap;
     }
-}
+    .logout-btn:hover { background: #8b3e32; color: #fff; }
+    .control-box, .day-box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,.07);
+    }
+    .summary-text { color: #765b49; }
+    .day-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
+    .day-heading h4 { margin: 0; }
+    .count-badge {
+        background: #f5e8dc;
+        color: #6f4e37;
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: .9rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+    .table { margin-bottom: 0; vertical-align: middle; }
+    .table thead th {
+        background: #6f4e37 !important;
+        color: #fff !important;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .table tbody td { text-align: center; vertical-align: middle; }
+    .delete-btn { white-space: nowrap; }
+    .message { text-align: center; padding: 30px !important; color: #777; }
+    .day-section + .day-section { margin-top: 22px; }
+    @media (max-width: 576px) {
+        .page-header { align-items: flex-start !important; }
+        .logout-btn { padding: 7px 12px; }
+        .control-box, .day-box { padding: 14px; }
+    }
 </style>
-
 </head>
-
 <body>
-
 <div class="container mt-4 mb-5">
-
-    <!-- PAGE HEADER -->
     <div class="page-header d-flex justify-content-between align-items-center mb-4">
-
-        <h2 class="mb-0">
-            予約管理
-        </h2>
-
-        <button
-            type="button"
-            class="logout-btn"
-            id="logoutBtn"
-        >
-            ログアウト
-        </button>
-
+        <h2 class="mb-0">予約管理</h2>
+        <button type="button" class="logout-btn" id="logoutBtn">ログアウト</button>
     </div>
 
-    <!-- RESERVATION TABLE -->
-    <div class="table-box">
-
-        <div class="table-responsive">
-
-            <table class="table table-bordered table-hover">
-
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>お名前</th>
-                        <th>電話番号</th>
-                        <th>メールアドレス</th>
-                        <th>日付</th>
-                        <th>時間</th>
-                        <th>人数</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-
-                <tbody id="reservation-list">
-                    <tr>
-                        <td colspan="8" class="message">
-                            読み込み中...
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-
+    <div class="control-box mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-12 col-md-5">
+                <label for="filterDate" class="form-label fw-bold">日付で絞り込む</label>
+                <input type="date" id="filterDate" class="form-control">
+            </div>
+            <div class="col-12 col-md-auto">
+                <button type="button" class="btn btn-outline-secondary" id="resetFilterBtn">
+                    今日以降の予約を表示
+                </button>
+            </div>
+            <div class="col-12 col-md text-md-end">
+                <div class="summary-text" id="reservationSummary" aria-live="polite">予約を読み込み中...</div>
+            </div>
         </div>
-
+        <small class="text-muted d-block mt-2">
+            初期表示は今日以降の予約です。過去の日付も選択すると確認できます。
+        </small>
     </div>
 
+    <div id="reservationGroups">
+        <div class="day-box message">読み込み中...</div>
+    </div>
 </div>
 
 <script>
+"use strict";
 
-// =====================================================
-// LOAD RESERVATIONS
-// =====================================================
+let allReservations = [];
+let selectedDate = "";
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+function getLocalDateString(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function formatJapaneseDate(dateString) {
+    const date = new Date(`${dateString}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return dateString || "日付未設定";
+    return new Intl.DateTimeFormat("ja-JP", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "short"
+    }).format(date);
+}
+
+function sortReservations(reservations) {
+    return [...reservations].sort((a, b) => {
+        const dateCompare = String(a.date || "").localeCompare(String(b.date || ""));
+        if (dateCompare !== 0) return dateCompare;
+        return String(a.time || "").localeCompare(String(b.time || ""));
+    });
+}
+
+function renderReservations() {
+    const container = document.getElementById("reservationGroups");
+    const summary = document.getElementById("reservationSummary");
+    const today = getLocalDateString();
+
+    let filtered = allReservations.filter(reservation => {
+        const date = String(reservation.date || "");
+        if (selectedDate) return date === selectedDate;
+        return date >= today;
+    });
+
+    filtered = sortReservations(filtered);
+    summary.textContent = selectedDate
+        ? `${formatJapaneseDate(selectedDate)}：${filtered.length} 件`
+        : `今日以降の予約：${filtered.length} 件`;
+
+    if (filtered.length === 0) {
+        const message = selectedDate
+            ? "この日の予約はありません。"
+            : "今日以降の予約はありません。";
+        container.innerHTML = `<div class="day-box message">${message}</div>`;
+        return;
+    }
+
+    const grouped = new Map();
+    filtered.forEach(reservation => {
+        const date = String(reservation.date || "日付未設定");
+        if (!grouped.has(date)) grouped.set(date, []);
+        grouped.get(date).push(reservation);
+    });
+
+    container.innerHTML = Array.from(grouped.entries()).map(([date, reservations]) => `
+        <section class="day-section day-box">
+            <div class="day-heading">
+                <h4>${escapeHTML(formatJapaneseDate(date))}</h4>
+                <span class="count-badge">${reservations.length} 件の予約</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>お名前</th>
+                            <th>電話番号</th>
+                            <th>メールアドレス</th>
+                            <th>時間</th>
+                            <th>人数</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${reservations.map(r => `
+                            <tr>
+                                <td>${escapeHTML(r.id)}</td>
+                                <td>${escapeHTML(r.name || "")}</td>
+                                <td>${escapeHTML(r.phone || "")}</td>
+                                <td>${escapeHTML(r.email || "")}</td>
+                                <td>${escapeHTML(r.time || "")}</td>
+                                <td>${escapeHTML(r.people ?? "")}</td>
+                                <td>
+                                    <button type="button"
+                                        class="btn btn-danger btn-sm delete-btn"
+                                        onclick="deleteReservation(${Number(r.id)})">
+                                        削除
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    `).join("");
+}
 
 async function loadReservations() {
-
-    const list = document.getElementById("reservation-list");
+    const container = document.getElementById("reservationGroups");
+    container.innerHTML = '<div class="day-box message">読み込み中...</div>';
 
     try {
-
         const response = await fetch("/api/reservations");
 
         if (response.status === 401) {
             window.location.href = "/admin/login.html";
             return;
         }
-
-        if (!response.ok) {
-            throw new Error("API error: " + response.status);
-        }
+        if (!response.ok) throw new Error("API error: " + response.status);
 
         const result = await response.json();
-
-        const reservations = result.reservations;
-
-        if (!Array.isArray(reservations)) {
+        if (!Array.isArray(result.reservations)) {
             throw new Error("reservations は配列ではありません。");
         }
 
-        if (reservations.length === 0) {
-
-            list.innerHTML = `
-                <tr>
-                    <td colspan="8" class="message">
-                        現在、予約はありません。
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
-
-        list.innerHTML = reservations.map(r => `
-
-            <tr>
-                <td>${r.id}</td>
-                <td>${r.name || ""}</td>
-                <td>${r.phone || ""}</td>
-                <td>${r.email || ""}</td>
-                <td>${r.date || ""}</td>
-                <td>${r.time || ""}</td>
-                <td>${r.people || ""}</td>
-
-                <td>
-                    <button
-                        type="button"
-                        class="btn btn-danger btn-sm delete-btn"
-                        onclick="deleteReservation(${Number(r.id)})"
-                    >
-                        削除
-                    </button>
-                </td>
-            </tr>
-
-        `).join("");
-
+        allReservations = result.reservations;
+        renderReservations();
     } catch (error) {
-
         console.error("予約読み込みエラー:", error);
-
-        list.innerHTML = `
-            <tr>
-                <td colspan="8" class="message text-danger">
-                    予約情報を読み込めませんでした。
-                    <br>
-                    <small>
-                        F12 → Console を確認してください。
-                    </small>
-                </td>
-            </tr>
+        document.getElementById("reservationSummary").textContent = "";
+        container.innerHTML = `
+            <div class="day-box message text-danger">
+                予約情報を読み込めませんでした。<br>
+                <small>F12 → Console を確認してください。</small>
+            </div>
         `;
     }
 }
 
-
-// =====================================================
-// DELETE RESERVATION
-// =====================================================
-
 async function deleteReservation(id) {
-
-    if (!confirm("この予約を削除しますか？")) {
-        return;
-    }
+    if (!confirm("この予約を削除しますか？")) return;
 
     try {
-
-        const response = await fetch("/api/reservations/" + id, {
+        const response = await fetch("/api/reservations/" + encodeURIComponent(id), {
             method: "DELETE"
         });
 
@@ -257,81 +263,59 @@ async function deleteReservation(id) {
         }
 
         const result = await response.json();
-
         if (!response.ok) {
             throw new Error(result.message || "削除に失敗しました。");
         }
 
         alert("予約を削除しました。");
-
-        loadReservations();
-
+        await loadReservations();
     } catch (error) {
-
         console.error("削除エラー:", error);
-
         alert(error.message || "予約の削除に失敗しました。");
     }
 }
 
+document.getElementById("filterDate").addEventListener("change", function () {
+    selectedDate = this.value;
+    renderReservations();
+});
 
-// =====================================================
-// LOGOUT
-// =====================================================
+document.getElementById("resetFilterBtn").addEventListener("click", function () {
+    selectedDate = "";
+    document.getElementById("filterDate").value = "";
+    renderReservations();
+});
 
 document.getElementById("logoutBtn").addEventListener("click", async function () {
-
-    if (!confirm("ログアウトしますか？")) {
-        return;
-    }
+    if (!confirm("ログアウトしますか？")) return;
 
     const button = this;
     button.disabled = true;
     button.textContent = "ログアウト中...";
 
     try {
-
         const response = await fetch("/api/admin/logout", {
             method: "POST",
             credentials: "same-origin"
         });
 
-        if (!response.ok) {
-            throw new Error("ログアウトに失敗しました。");
-        }
+        if (!response.ok) throw new Error("ログアウトに失敗しました。");
 
         const result = await response.json();
-
         if (result.success) {
-
             window.location.replace("/admin/login.html");
-
         } else {
-
             throw new Error("ログアウトに失敗しました。");
         }
-
     } catch (error) {
-
         console.error("Logout error:", error);
-
         alert("ログアウトに失敗しました。もう一度お試しください。");
-
         button.disabled = false;
         button.textContent = "ログアウト";
     }
-
 });
 
-
-// =====================================================
-// START
-// =====================================================
-
 loadReservations();
-
 </script>
-
 </body>
 </html>
-```
