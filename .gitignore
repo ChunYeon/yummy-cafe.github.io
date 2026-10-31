@@ -10,3 +10,4 @@ npm-debug.log
 
 # SQLite database containing customer data
 server/restaurant.db
+sessions.sqlite
